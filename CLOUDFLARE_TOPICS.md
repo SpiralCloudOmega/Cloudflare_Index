@@ -4,29 +4,45 @@
 
 ![Repositories](https://img.shields.io/badge/Repositories-478-orange?style=flat-square&logo=cloudflare)
 ![Stars](https://img.shields.io/badge/Total%20Stars-233%2C749-yellow?style=flat-square&logo=github)
+![Last Updated](https://img.shields.io/badge/Last%20Updated-April%202026-green?style=flat-square)
+
+---
+
+## 🧭 How to Use This File
+
+Each category section contains:
+- A brief description of what's in that category
+- **🌟 Highlights** — the top 5 repos by star count (quick wins for developers)
+- A **collapsible full table** — all repos in the category alphabetically
+
+**New to Cloudflare?** Start with [Workers & Serverless](#workers--serverless) or [AI & Machine Learning](#ai--machine-learning).  
+**Building secure systems?** Check [Security & Cryptography](#security--cryptography) and [Networking & Infrastructure](#networking--infrastructure).  
+**Looking for SDKs?** Go to [Developer Tools & SDKs](#developer-tools--sdks).
+
+> 📖 See [CLOUDFLARE_ECOSYSTEM.md](CLOUDFLARE_ECOSYSTEM.md) for a full product-to-repo mapping guide.
 
 ---
 
 ## 🗺️ Topic Overview
 
-| # | Category | Repos | Top Repository |
-|---|----------|-------|----------------|
-| 1 | 📦 [Libraries & Utilities](#libraries--utilities) | 204 | [gokey](https://github.com/cloudflare/gokey) (2,417⭐) |
-| 2 | ⛅ [Workers & Serverless](#workers--serverless) | 106 | [moltworker](https://github.com/cloudflare/moltworker) (9,806⭐) |
-| 3 | 🔐 [Security & Cryptography](#security--cryptography) | 50 | [cfssl](https://github.com/cloudflare/cfssl) (9,385⭐) |
-| 4 | 🛠️ [Developer Tools & SDKs](#developer-tools--sdks) | 34 | [cloudflare-go](https://github.com/cloudflare/cloudflare-go) (1,954⭐) |
-| 5 | 🌐 [Networking & Infrastructure](#networking--infrastructure) | 25 | [pingora](https://github.com/cloudflare/pingora) (26,353⭐) |
-| 6 | 🤖 [AI & Machine Learning](#ai--machine-learning) | 19 | [vinext](https://github.com/cloudflare/vinext) (7,710⭐) |
-| 7 | 📖 [Documentation & Examples](#documentation--examples) | 16 | [cloudflare-docs](https://github.com/cloudflare/cloudflare-docs) (4,577⭐) |
-| 8 | 🎨 [Web & Frontend](#web--frontend) | 10 | [cf-ui](https://github.com/cloudflare/cf-ui) (1,291⭐) |
-| 9 | 📊 [Observability & Monitoring](#observability--monitoring) | 9 | [pint](https://github.com/cloudflare/pint) (1,013⭐) |
-| 10 | 🗄️ [Databases & Storage](#databases--storage) | 5 | [lua-upstream-cache-nginx-module](https://github.com/cloudflare/lua-upstream-cache-nginx-module) (124⭐) |
+| # | Category | Repos | ⭐ Total Stars | Top Repository |
+|---|----------|-------|---------------|----------------|
+| 1 | 📦 [Libraries & Utilities](#libraries--utilities) | 204 | 41,975 | [gokey](https://github.com/cloudflare/gokey) (2,417⭐) |
+| 2 | ⛅ [Workers & Serverless](#workers--serverless) | 106 | 57,504 | [moltworker](https://github.com/cloudflare/moltworker) (9,806⭐) |
+| 3 | 🔐 [Security & Cryptography](#security--cryptography) | 50 | 28,588 | [cfssl](https://github.com/cloudflare/cfssl) (9,385⭐) |
+| 4 | 🛠️ [Developer Tools & SDKs](#developer-tools--sdks) | 34 | 6,329 | [cloudflare-go](https://github.com/cloudflare/cloudflare-go) (1,954⭐) |
+| 5 | 🌐 [Networking & Infrastructure](#networking--infrastructure) | 25 | 60,738 | [pingora](https://github.com/cloudflare/pingora) (26,353⭐) |
+| 6 | 🤖 [AI & Machine Learning](#ai--machine-learning) | 19 | 25,948 | [vinext](https://github.com/cloudflare/vinext) (7,710⭐) |
+| 7 | 📖 [Documentation & Examples](#documentation--examples) | 16 | 6,582 | [cloudflare-docs](https://github.com/cloudflare/cloudflare-docs) (4,577⭐) |
+| 8 | 🎨 [Web & Frontend](#web--frontend) | 10 | 3,234 | [cf-ui](https://github.com/cloudflare/cf-ui) (1,291⭐) |
+| 9 | 📊 [Observability & Monitoring](#observability--monitoring) | 9 | 2,704 | [pint](https://github.com/cloudflare/pint) (1,013⭐) |
+| 10 | 🗄️ [Databases & Storage](#databases--storage) | 5 | 147 | [hyperdrive-demo](https://github.com/cloudflare/hyperdrive-demo) (15⭐) |
 
 ---
 
 ## 📦 Libraries & Utilities
 
-> General-purpose Rust/Go/C libraries, algorithms, parsers, runtime utilities, and everything else in the Cloudflare open-source toolbox.
+> General-purpose Rust, Go, and C libraries, algorithms, data structures, parsers, runtime utilities, and miscellaneous tools from Cloudflare's engineering teams. This is the largest category — it's the "toolbox" of reusable components that power Cloudflare's internal services and are shared with the community. Notable entries include `lol-html` (HTML rewriter powering Workers' HTMLRewriter API), `foundations` (Cloudflare's Rust service framework), and `cobweb` (COBOL-to-Wasm compiler).
 
 **204 repositories** · **41,975 total stars**
 
@@ -254,7 +270,7 @@
 
 ## ⛅ Workers & Serverless
 
-> Cloudflare Workers, Wrangler CLI, Durable Objects, Workers KV, R2, D1, Pages, and everything that makes the serverless edge tick.
+> Everything needed to build, test, and deploy on Cloudflare Workers — the world's most widely-used edge serverless platform. Includes `workerd` (the open-source JS/Wasm runtime), `wrangler` (the CLI), `miniflare` (local dev simulator), and a huge collection of starter templates, bindings, and framework integrations. Also covers Durable Objects, Workers KV, R2, D1, and Cloudflare Pages integrations.
 
 **106 repositories** · **57,504 total stars**
 
@@ -384,7 +400,7 @@
 
 ## 🔐 Security & Cryptography
 
-> Zero Trust, TLS/PKI tooling, WireGuard, CFSSL, post-quantum cryptography, Privacy Pass, CIRCL, and vulnerability scanning.
+> Cloudflare's security open source spans from foundational PKI tooling (CFSSL, used by Kubernetes and the broader Go ecosystem) to post-quantum cryptography (CIRCL with Kyber/SIDH implementations), WireGuard (boringtun, powers WARP), and zero-knowledge privacy protocols (Privacy Pass). Also includes NTS (Network Time Security), vulnerability scanning (Flan), and access control utilities.
 
 **50 repositories** · **28,588 total stars**
 
@@ -458,7 +474,7 @@
 
 ## 🛠️ Developer Tools & SDKs
 
-> Official Cloudflare SDKs (Go, Python, TypeScript), Terraform providers, CLI tools, and scaffolding utilities.
+> Official Cloudflare API client libraries in Go, TypeScript, Python, Rust, and PHP, plus the Terraform provider (managing Cloudflare config as code) and cf-terraforming (importing existing config). These are the official, supported ways to integrate Cloudflare programmatically into any tech stack.
 
 **34 repositories** · **6,329 total stars**
 
@@ -516,7 +532,7 @@
 
 ## 🌐 Networking & Infrastructure
 
-> Pingora, QUIC/HTTP3, BGP/RPKI, Cloudflare Tunnel, eBPF networking, DNS tooling, and high-performance proxy infrastructure.
+> The low-level networking stack that Cloudflare has built and open-sourced — starting with Pingora (the Rust HTTP proxy framework processing trillions of requests, now open source with 26k stars), quiche (QUIC + HTTP/3 in Rust), and cloudflared (the Tunnel daemon). Also covers BGP/RPKI route security, eBPF networking tools, and the graceful process restart library tableflip.
 
 **25 repositories** · **60,738 total stars**
 
@@ -565,7 +581,7 @@
 
 ## 🤖 AI & Machine Learning
 
-> AI agents, Workers AI, MCP servers, vibe coding, AutoRAG, Vectorize, and machine learning tools built on Cloudflare's edge.
+> Cloudflare's AI platform open source — from the agents framework (build stateful AI agents on Workers with persistence, scheduling, and streaming) to MCP server support (Model Context Protocol), AutoRAG (managed RAG pipelines using R2 + Vectorize), and Workers AI utilities. Cloudflare positions itself as the edge AI platform, running 50+ open-source models at the edge with no GPU management.
 
 **19 repositories** · **25,948 total stars**
 
@@ -608,7 +624,7 @@
 
 ## 📖 Documentation & Examples
 
-> Official Cloudflare documentation, blog code samples, demo projects, and reference implementations.
+> Cloudflare's own documentation is open source — cloudflare-docs (4.5k stars) is one of the most actively maintained developer doc sites, now running on Astro. This category also includes the cloudflare-blog code samples repository, demo projects from Developer Week events, and reference implementations.
 
 **16 repositories** · **6,582 total stars**
 
@@ -648,7 +664,7 @@
 
 ## 🎨 Web & Frontend
 
-> Kumo component library, CF UI Framework, React utilities, accessibility tools, and frontend building blocks.
+> Frontend-focused libraries, UI frameworks, and web application projects. Includes Kumo (Cloudflare's modern React component library), CF-UI (the older UI framework), lol-html (the streaming HTML rewriter powering HTMLRewriter in Workers), wildebeest (an ActivityPub/Mastodon server built entirely on Workers), and accessibility utilities.
 
 **10 repositories** · **3,234 total stars**
 
@@ -682,7 +698,7 @@
 
 ## 📊 Observability & Monitoring
 
-> Prometheus exporters, eBPF metrics, Alertmanager bridges, log shipping, and monitoring tooling for the edge.
+> Cloudflare's internal monitoring tooling, open-sourced for the community. Built around Prometheus — ebpf_exporter lets you write custom eBPF programs and export their metrics to Prometheus, while pint validates Prometheus rules at scale. Also includes Alertmanager integrations, alert dashboards (unsee), and network monitoring utilities.
 
 **9 repositories** · **2,704 total stars**
 
@@ -715,17 +731,17 @@
 
 ## 🗄️ Databases & Storage
 
-> D1 (SQLite at the edge), KV stores, R2 object storage, Durable Objects, queues, and data storage solutions.
+> Storage solutions for the Cloudflare edge: D1 (SQLite-based distributed SQL), R2 (S3-compatible object storage with zero egress), Workers KV (globally-replicated key-value), Durable Objects (consistent stateful storage), and Queue. Also includes experimental database adapters and storage research projects.
 
 **5 repositories** · **147 total stars**
 
 ### 🌟 Highlights
 
-- **[lua-upstream-cache-nginx-module](https://github.com/cloudflare/lua-upstream-cache-nginx-module)** (124⭐) — Nginx module for ngx_lua to provide Lua API to inspect upstream http cache meta-data
 - **[hyperdrive-demo](https://github.com/cloudflare/hyperdrive-demo)** (15⭐) — A demo site for @cloudflare Hyperdrive (makes databases fast) - https://developers.cloudflare.com/hyperdrive/
 - **[r2-data-catalog-examples](https://github.com/cloudflare/r2-data-catalog-examples)** (6⭐) — 
 - **[r2-explorer-template-9](https://github.com/cloudflare/r2-explorer-template-9)** (1⭐) — 
 - **[r2-explorer-template123](https://github.com/cloudflare/r2-explorer-template123)** (1⭐) — 
+- **[lua-upstream-cache-nginx-module](https://github.com/cloudflare/lua-upstream-cache-nginx-module)** (124⭐) — Nginx module for ngx_lua to provide Lua API to inspect upstream http cache meta-data
 
 <details>
 <summary>View all 5 repositories in this category</summary>
