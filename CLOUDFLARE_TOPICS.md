@@ -3,7 +3,7 @@
 > *Explore all 478 Cloudflare open-source repositories organized by technology area.*
 
 ![Repositories](https://img.shields.io/badge/Repositories-478-orange?style=flat-square&logo=cloudflare)
-![Stars](https://img.shields.io/badge/Total%20Stars-233,749-yellow?style=flat-square&logo=github)
+![Stars](https://img.shields.io/badge/Total%20Stars-233%2C749-yellow?style=flat-square&logo=github)
 
 ---
 

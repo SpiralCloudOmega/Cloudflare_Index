@@ -3,8 +3,8 @@
 > *"One edge to rule them all — Cloudflare's complete open-source universe."*
 
 ![Repositories](https://img.shields.io/badge/Repositories-478-orange?style=flat-square&logo=cloudflare)
-![Stars](https://img.shields.io/badge/Total%20Stars-233,749-yellow?style=flat-square&logo=github)
-![Forks](https://img.shields.io/badge/Total%20Forks-43,163-blue?style=flat-square)
+![Stars](https://img.shields.io/badge/Total%20Stars-233%2C749-yellow?style=flat-square&logo=github)
+![Forks](https://img.shields.io/badge/Total%20Forks-43%2C163-blue?style=flat-square)
 ![Last Updated](https://img.shields.io/badge/Last%20Updated-April%202026-green?style=flat-square)
 
 ---

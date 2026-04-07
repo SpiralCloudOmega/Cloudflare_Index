@@ -24,6 +24,30 @@ from urllib.error import HTTPError
 GITHUB_API = "https://api.github.com"
 ORG = "cloudflare"
 
+EXPLICIT_OVERRIDES = {
+    "sandbox": "Security & Cryptography",
+    "sqlalchemy-clickhouse": "Databases & Storage",
+    "parquet-tsdb-poc": "Databases & Storage",
+    "sorta-sql": "Databases & Storage",
+    "SortaSQL": "Databases & Storage",
+    "wildebeest": "Web & Frontend",
+    "meet": "Web & Frontend",
+    "daphne": "Security & Cryptography",
+    "lua-upstream-cache-nginx-module": "Networking & Infrastructure",
+    "nginx-google-oauth": "Networking & Infrastructure",
+    "cbor-cert": "Security & Cryptography",
+    "cf-nocompress": "Networking & Infrastructure",
+    "redoctober": "Security & Cryptography",
+    "go-stream-limiter": "Networking & Infrastructure",
+    "awesome-agents": "AI & Machine Learning",
+    "agent-skills-discovery-rfc": "AI & Machine Learning",
+    "actors": "Workers & Serverless",
+    "autorag": "AI & Machine Learning",
+    "ai": "AI & Machine Learning",
+    "lol-html": "Libraries & Utilities",
+    "cobweb": "Libraries & Utilities",
+}
+
 
 def get_headers():
     token = os.environ.get("GITHUB_TOKEN")
@@ -65,6 +89,13 @@ def fetch_all_repos():
 
 
 def categorize(repo):
+    # Explicit overrides take highest priority
+    if repo["name"] in EXPLICIT_OVERRIDES:
+        return EXPLICIT_OVERRIDES[repo["name"]]
+    _lower_overrides = {k.lower(): v for k, v in EXPLICIT_OVERRIDES.items()}
+    if repo["name"].lower() in _lower_overrides:
+        return _lower_overrides[repo["name"].lower()]
+
     name = repo["name"].lower()
     desc = (repo.get("description") or "").lower()
     topics = [t.lower() for t in repo.get("topics", [])]
@@ -169,8 +200,8 @@ def generate_index(repos):
         "> *\"One edge to rule them all — Cloudflare's complete open-source universe.\"*",
         "",
         f"![Repositories](https://img.shields.io/badge/Repositories-{len(repos)}-orange?style=flat-square&logo=cloudflare)",
-        f"![Stars](https://img.shields.io/badge/Total%20Stars-{total_stars:,}-yellow?style=flat-square&logo=github)",
-        f"![Forks](https://img.shields.io/badge/Total%20Forks-{total_forks:,}-blue?style=flat-square)",
+        f"![Stars](https://img.shields.io/badge/Total%20Stars-{f'{total_stars:,}'.replace(',', '%2C')}-yellow?style=flat-square&logo=github)",
+        f"![Forks](https://img.shields.io/badge/Total%20Forks-{f'{total_forks:,}'.replace(',', '%2C')}-blue?style=flat-square)",
         f"![Last Updated](https://img.shields.io/badge/Last%20Updated-{updated.replace(' ', '%20')}-green?style=flat-square)",
         "",
         "---",
@@ -268,7 +299,7 @@ def generate_topics(repos):
         "> *Explore all Cloudflare open-source repositories organized by technology area.*",
         "",
         f"![Repositories](https://img.shields.io/badge/Repositories-{len(repos)}-orange?style=flat-square&logo=cloudflare)",
-        f"![Stars](https://img.shields.io/badge/Total%20Stars-{total_stars:,}-yellow?style=flat-square&logo=github)",
+        f"![Stars](https://img.shields.io/badge/Total%20Stars-{f'{total_stars:,}'.replace(',', '%2C')}-yellow?style=flat-square&logo=github)",
         f"![Last Updated](https://img.shields.io/badge/Last%20Updated-{updated.replace(' ', '%20')}-green?style=flat-square)",
         "",
         "---",
