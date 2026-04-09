@@ -11,33 +11,120 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
 
+> 🌐 **[Launch Interactive Explorer →](https://SpiralCloudOmega.github.io/Cloudflare_Index/)** — 3D node graph, animated stats, searchable repo table
+
 ---
 
 ## 🚀 Browse the Index
 
 | File | What it contains |
 |------|-----------------|
+| 🌐 **[Interactive Explorer](https://SpiralCloudOmega.github.io/Cloudflare_Index/)** | Visual, animated, searchable web app with 3D ecosystem graph |
 | 📋 **[CLOUDFLARE_INDEX.md](CLOUDFLARE_INDEX.md)** | All 478 repos alphabetically (A–Z) with descriptions, languages & star counts |
 | 🗂️ **[CLOUDFLARE_TOPICS.md](CLOUDFLARE_TOPICS.md)** | All repos grouped by technology category with highlights & collapsible full lists |
 | 🗺️ **[CLOUDFLARE_ECOSYSTEM.md](CLOUDFLARE_ECOSYSTEM.md)** | Product-to-repo mapping: every Cloudflare product and its corresponding open source repos |
+| ⛅ **[AWESOME_CLOUDFLARE.md](AWESOME_CLOUDFLARE.md)** | Curated community tools, frameworks (Hono, RedwoodSDK), awesome lists |
+| 🤖 **[CLOUDFLARE_MCP.md](CLOUDFLARE_MCP.md)** | MCP integration guide — connect AI assistants to Cloudflare services |
+| 💰 **[CLOUDFLARE_PRICING.md](CLOUDFLARE_PRICING.md)** | Pricing reference — Workers AI ($0.045/M tokens), R2 ($0.015/GB), D1, KV |
 
 ---
 
 ## 📂 Repository Structure
 
 ```
+📁 site/                            — Interactive React app (GitHub Pages)
+├── src/components/                — Hero, Stats, EcosystemGraph, RepoExplorer
+├── src/data/repos.ts              — Category data & repo metadata
+├── vite.config.ts                 — Vite build configuration
+└── dist/                          — Built static site
+
 📁 scripts/
-└── generate_cloudflare_index.py  — Regenerate the index from GitHub API
+└── generate_cloudflare_index.py   — Regenerate the index from GitHub API
 
 📁 .github/workflows/
-└── update_cloudflare_index.yml   — Weekly auto-update (every Monday)
+├── update_cloudflare_index.yml    — Weekly auto-update (every Monday)
+└── deploy_site.yml                — Build & deploy interactive site to GitHub Pages
 
-📄 CLOUDFLARE_INDEX.md      — A-to-Z clickable index of all Cloudflare repos
-📄 CLOUDFLARE_TOPICS.md     — Topic-organized view (AI/ML, Workers, Security, DNS…)
-📄 CLOUDFLARE_ECOSYSTEM.md  — Product-to-repo ecosystem map
-📄 CONTRIBUTING.md          — How to contribute
-📄 LICENSE                  — MIT License
+📄 CLOUDFLARE_INDEX.md       — A-to-Z clickable index of all Cloudflare repos
+📄 CLOUDFLARE_TOPICS.md      — Topic-organized view (AI/ML, Workers, Security, DNS…)
+📄 CLOUDFLARE_ECOSYSTEM.md   — Product-to-repo ecosystem map
+📄 AWESOME_CLOUDFLARE.md     — Curated community tools, frameworks, awesome lists
+📄 CLOUDFLARE_MCP.md         — MCP integration guide with architecture diagrams
+📄 CLOUDFLARE_PRICING.md     — Pricing reference for all Cloudflare services
+📄 CONTRIBUTING.md            — How to contribute
+📄 LICENSE                    — MIT License
 ```
+
+---
+
+## 🗺️ Ecosystem Architecture
+
+```mermaid
+graph TB
+    subgraph "🌐 Cloudflare Global Network"
+        direction TB
+        CF["☁️ Cloudflare<br/>330+ cities · 120+ countries"]
+    end
+
+    subgraph "⛅ Developer Platform"
+        W["⚡ Workers Runtime<br/>workerd · 8,107⭐"]
+        P["📄 Pages<br/>JAMstack hosting"]
+        DO["🔒 Durable Objects<br/>Stateful compute"]
+    end
+
+    subgraph "🗄️ Data Services"
+        D1["🗃️ D1<br/>SQLite at edge"]
+        R2["📦 R2 Storage<br/>S3-compatible · $0 egress"]
+        KV["🔑 KV<br/>Key-value store"]
+        VZ["🔍 Vectorize<br/>Vector database"]
+    end
+
+    subgraph "🤖 AI Platform"
+        AI["🧠 Workers AI<br/>50+ models · $0.045/M tokens"]
+        AG["🤖 Agents Framework<br/>4,702⭐"]
+        MCP["📡 MCP Server<br/>3,589⭐"]
+        RAG["📚 AutoRAG<br/>Managed RAG pipeline"]
+    end
+
+    subgraph "🔐 Security"
+        ZT["🛡️ Zero Trust"]
+        TLS["🔑 CFSSL · 9,385⭐"]
+        WG["🔒 boringtun · 6,974⭐"]
+    end
+
+    subgraph "🌐 Networking"
+        PI["🚀 Pingora · 26,353⭐"]
+        QC["📡 quiche · 11,382⭐"]
+        TN["🔗 cloudflared · 13,703⭐"]
+    end
+
+    CF --> W & P & DO
+    W --> D1 & R2 & KV & VZ
+    W --> AI & AG & MCP
+    AI --> RAG
+    CF --> ZT & TLS & WG
+    CF --> PI & QC & TN
+
+    style CF fill:#f6821f,color:#fff,stroke:#f6821f
+    style W fill:#f59e0b,color:#fff,stroke:#f59e0b
+    style AI fill:#10b981,color:#fff,stroke:#10b981
+    style PI fill:#3b82f6,color:#fff,stroke:#3b82f6
+    style ZT fill:#ef4444,color:#fff,stroke:#ef4444
+    style R2 fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+```
+
+---
+
+## 🛠️ Cloudflare Templates (Ready to Deploy)
+
+This project was built using Cloudflare's official templates — you can use them too:
+
+| Template | What it is | Deploy |
+|----------|------------|--------|
+| **[vite-react-template](https://github.com/SpiralCloudOmega/vite-react-template)** | Vite + React + Hono + Cloudflare Workers — full-stack app | `npm create cloudflare@latest -- --framework=react` |
+| **[r2-explorer-template](https://github.com/SpiralCloudOmega/r2-explorer-template)** | Google Drive-like UI for R2 buckets — drag & drop, preview, edit | `npm create cloudflare@latest -- --template=r2-explorer-template` |
+
+> 💡 The **interactive explorer** in this repo is built on the vite-react-template. The R2 Explorer is a separate app for managing your R2 storage with a beautiful file-manager UI.
 
 ---
 
@@ -61,6 +148,52 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 ---
 
 ## 🗂️ Technology Categories
+
+```mermaid
+mindmap
+  root((☁️ Cloudflare<br/>478 repos))
+    📦 Libraries & Utilities
+      204 repos · 41,975⭐
+      lol-html
+      foundations
+      gokey
+    ⛅ Workers & Serverless
+      106 repos · 57,504⭐
+      workerd
+      workers-sdk
+      miniflare
+    🔐 Security & Crypto
+      50 repos · 28,588⭐
+      cfssl
+      boringtun
+      circl
+    🌐 Networking
+      25 repos · 60,738⭐
+      pingora
+      quiche
+      cloudflared
+    🤖 AI & ML
+      19 repos · 25,948⭐
+      agents
+      vibesdk
+      mcp-server
+    🛠️ DevTools & SDKs
+      34 repos · 6,329⭐
+      cloudflare-go
+      terraform
+    📖 Docs & Examples
+      16 repos · 6,582⭐
+      cloudflare-docs
+    🎨 Web & Frontend
+      10 repos · 3,234⭐
+      cf-ui
+    📊 Observability
+      9 repos · 2,704⭐
+      ebpf_exporter
+    🗄️ Databases
+      5 repos · 147⭐
+      D1 · R2 · KV
+```
 
 | Category | Repos | What's inside |
 |----------|-------|--------------|
@@ -99,6 +232,32 @@ Cloudflare (NYSE: NET) is one of the world's largest network services companies,
 ---
 
 ## 🤖 Notable AI & Serverless Repos
+
+### AI Agent Architecture
+
+```mermaid
+sequenceDiagram
+    participant User as 👤 User
+    participant Client as 🤖 AI Client (Claude/Cursor)
+    participant MCP as 📡 MCP Server on Workers
+    participant CF as ☁️ Cloudflare Services
+
+    User->>Client: "Deploy my Worker"
+    Client->>MCP: tool_call: workers_put
+    MCP->>CF: Cloudflare API
+    CF-->>MCP: Deployed ✓
+    MCP-->>Client: Success response
+    Client-->>User: "Worker deployed!"
+
+    User->>Client: "Query my D1 database"
+    Client->>MCP: tool_call: d1_query
+    MCP->>CF: D1 SQL query
+    CF-->>MCP: Query results
+    MCP-->>Client: Formatted data
+    Client-->>User: Table of results
+```
+
+> 📖 Full MCP guide: [CLOUDFLARE_MCP.md](CLOUDFLARE_MCP.md) · Pricing: [CLOUDFLARE_PRICING.md](CLOUDFLARE_PRICING.md)
 
 ### AI & Agents
 - **[agents](https://github.com/cloudflare/agents)** (4,702⭐) — Full framework for building stateful AI agents on Workers with persistent state via Durable Objects
@@ -211,6 +370,7 @@ Or trigger it from the **Actions** tab → **Update Cloudflare Index** → **Run
 
 | Resource | Link |
 |----------|------|
+| 🌐 Interactive Explorer | [SpiralCloudOmega.github.io/Cloudflare_Index](https://SpiralCloudOmega.github.io/Cloudflare_Index/) |
 | 📚 Developer Docs | [developers.cloudflare.com](https://developers.cloudflare.com/) |
 | 📖 Cloudflare Blog | [blog.cloudflare.com](https://blog.cloudflare.com/) |
 | 💬 Developer Discord | [discord.cloudflare.com](https://discord.cloudflare.com/) |
@@ -221,6 +381,9 @@ Or trigger it from the **Actions** tab → **Update Cloudflare Index** → **Run
 | 🐛 Community Forum | [community.cloudflare.com](https://community.cloudflare.com/) |
 | 📡 System Status | [www.cloudflarestatus.com](https://www.cloudflarestatus.com/) |
 | 🗺️ Product Ecosystem Guide | [CLOUDFLARE_ECOSYSTEM.md](CLOUDFLARE_ECOSYSTEM.md) |
+| ⛅ Awesome Cloudflare | [AWESOME_CLOUDFLARE.md](AWESOME_CLOUDFLARE.md) |
+| 🤖 MCP Integration Guide | [CLOUDFLARE_MCP.md](CLOUDFLARE_MCP.md) |
+| 💰 Pricing Reference | [CLOUDFLARE_PRICING.md](CLOUDFLARE_PRICING.md) |
 
 ---
 
