@@ -67,7 +67,7 @@ export const categories: Category[] = [
       { name: "foundations", stars: 1569, description: "Modular Rust service foundations library", language: "Rust", url: "https://github.com/cloudflare/foundations", category: "Libraries" },
       { name: "bn256", stars: 205, description: "BN256 pairing implementation in Go", language: "Go", url: "https://github.com/cloudflare/bn256", category: "Libraries" },
       { name: "odoh-go", stars: 131, description: "Oblivious DNS over HTTPS library", language: "Go", url: "https://github.com/cloudflare/odoh-go", category: "Libraries" },
-      { name: "stpyv8", stars: 2080, description: "Python V8 JavaScript engine bindings", language: "C++", url: "https://github.com/nicholasgriffintn/stpyv8", category: "Libraries" },
+      { name: "wirefilter", stars: 320, description: "Wireshark-like filtering expression engine", language: "Rust", url: "https://github.com/cloudflare/wirefilter", category: "Libraries" },
       { name: "tableflip", stars: 920, description: "Graceful process restarts in Go", language: "Go", url: "https://github.com/cloudflare/tableflip", category: "Libraries" },
       { name: "golibs", stars: 405, description: "Various Go utility libraries", language: "Go", url: "https://github.com/cloudflare/golibs", category: "Libraries" },
     ]
