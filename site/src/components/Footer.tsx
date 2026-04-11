@@ -6,6 +6,7 @@ function Footer() {
     { label: "CLOUDFLARE_ECOSYSTEM.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/CLOUDFLARE_ECOSYSTEM.md" },
     { label: "CLOUDFLARE_MCP.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/CLOUDFLARE_MCP.md" },
     { label: "AWESOME_CLOUDFLARE.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/AWESOME_CLOUDFLARE.md" },
+    { label: "CLOUDFLARE_PRICING.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/CLOUDFLARE_PRICING.md" },
   ];
 
   return (

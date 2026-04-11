@@ -11,7 +11,7 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
 
-> 🌐 **[Launch Interactive Explorer →](https://SpiralCloudOmega.github.io/Cloudflare_Index/)** — 3D node graph, animated stats, searchable repo table
+> 🌐 **[Launch Interactive Explorer →](https://SpiralCloudOmega.github.io/Cloudflare_Index/)** — Interactive ecosystem graph, animated stats, searchable repo table
 
 ---
 
@@ -19,7 +19,7 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 
 | File | What it contains |
 |------|-----------------|
-| 🌐 **[Interactive Explorer](https://SpiralCloudOmega.github.io/Cloudflare_Index/)** | Visual, animated, searchable web app with 3D ecosystem graph |
+| 🌐 **[Interactive Explorer](https://SpiralCloudOmega.github.io/Cloudflare_Index/)** | Visual, animated, searchable web app with interactive ecosystem graph |
 | 📋 **[CLOUDFLARE_INDEX.md](CLOUDFLARE_INDEX.md)** | All 478 repos alphabetically (A–Z) with descriptions, languages & star counts |
 | 🗂️ **[CLOUDFLARE_TOPICS.md](CLOUDFLARE_TOPICS.md)** | All repos grouped by technology category with highlights & collapsible full lists |
 | 🗺️ **[CLOUDFLARE_ECOSYSTEM.md](CLOUDFLARE_ECOSYSTEM.md)** | Product-to-repo mapping: every Cloudflare product and its corresponding open source repos |
@@ -33,10 +33,14 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 
 ```
 📁 site/                            — Interactive React app (GitHub Pages)
-├── src/components/                — Hero, Stats, EcosystemGraph, RepoExplorer
-├── src/data/repos.ts              — Category data & repo metadata
-├── vite.config.ts                 — Vite build configuration
-└── dist/                          — Built static site
+├── src/components/                — 11 components: Navbar, Hero, Stats,
+│                                    EcosystemGraph, CategoryCards, QuickStart,
+│                                    RepoExplorer, Timeline, LanguageChart,
+│                                    Footer, BackToTop
+├── src/data/repos.ts              — 60+ repos, language stats, timeline milestones
+├── public/                        — cloudflare.svg, 404.html (SPA), robots.txt
+├── vite.config.ts                 — Vite 6 build configuration
+└── dist/                          — Built static site (~245KB)
 
 📁 scripts/
 └── generate_cloudflare_index.py   — Regenerate the index from GitHub API
