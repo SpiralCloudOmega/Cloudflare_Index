@@ -201,6 +201,14 @@ a:hover {
   html {
     font-size: 14px;
   }
+
+  /* Navbar responsive: show hamburger, hide desktop links */
+  nav > div > div:nth-child(2) {
+    display: none !important;
+  }
+  nav > div > button {
+    display: flex !important;
+  }
 }
 
 @media (max-width: 480px) {

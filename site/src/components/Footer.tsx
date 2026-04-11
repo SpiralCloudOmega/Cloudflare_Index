@@ -1,9 +1,11 @@
 function Footer() {
   const links = [
-    { label: "GitHub Repository", url: "https://github.com/nicholasgriffintn/Cloudflare_Index" },
-    { label: "CLOUDFLARE_INDEX.md", url: "https://github.com/nicholasgriffintn/Cloudflare_Index/blob/main/CLOUDFLARE_INDEX.md" },
-    { label: "CLOUDFLARE_TOPICS.md", url: "https://github.com/nicholasgriffintn/Cloudflare_Index/blob/main/CLOUDFLARE_TOPICS.md" },
-    { label: "CLOUDFLARE_ECOSYSTEM.md", url: "https://github.com/nicholasgriffintn/Cloudflare_Index/blob/main/CLOUDFLARE_ECOSYSTEM.md" },
+    { label: "GitHub Repository", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index" },
+    { label: "CLOUDFLARE_INDEX.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/CLOUDFLARE_INDEX.md" },
+    { label: "CLOUDFLARE_TOPICS.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/CLOUDFLARE_TOPICS.md" },
+    { label: "CLOUDFLARE_ECOSYSTEM.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/CLOUDFLARE_ECOSYSTEM.md" },
+    { label: "CLOUDFLARE_MCP.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/CLOUDFLARE_MCP.md" },
+    { label: "AWESOME_CLOUDFLARE.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/AWESOME_CLOUDFLARE.md" },
   ];
 
   return (
