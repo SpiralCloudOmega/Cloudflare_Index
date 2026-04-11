@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { allTopRepos, categories } from "../data/repos";
 import type { Repo } from "../data/repos";
 
@@ -9,6 +9,23 @@ function RepoExplorer() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [sortKey, setSortKey] = useState<SortKey>("stars");
   const [sortAsc, setSortAsc] = useState(false);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  // Keyboard shortcut: "/" to focus search
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "/" && document.activeElement?.tagName !== "INPUT") {
+        e.preventDefault();
+        searchRef.current?.focus();
+        searchRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      if (e.key === "Escape" && document.activeElement === searchRef.current) {
+        searchRef.current?.blur();
+      }
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
 
   const filtered = useMemo(() => {
     let repos: Repo[] = allTopRepos;
@@ -45,8 +62,9 @@ function RepoExplorer() {
 
       <div style={styles.controls}>
         <input
+          ref={searchRef}
           type="text"
-          placeholder="Search repos by name, language, or description..."
+          placeholder="Search repos by name, language, or description... (press / to focus)"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           style={styles.searchInput}

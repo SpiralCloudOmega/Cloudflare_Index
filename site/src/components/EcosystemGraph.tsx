@@ -9,6 +9,21 @@ const CY = HEIGHT / 2;
 const RADIUS = 260;
 const CENTER_R = 50;
 
+/** Define cross-category relationships */
+const connections: [number, number][] = [
+  [0, 1], // Networking → Workers
+  [1, 2], // Workers → Libraries
+  [1, 3], // Workers → Security
+  [1, 4], // Workers → AI
+  [1, 5], // Workers → DevTools
+  [1, 9], // Workers → Storage
+  [4, 9], // AI → Storage
+  [3, 0], // Security → Networking
+  [5, 6], // DevTools → Docs
+  [7, 1], // Web → Workers
+  [8, 0], // Observability → Networking
+];
+
 function EcosystemGraph() {
   const [hovered, setHovered] = useState<number | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
@@ -22,6 +37,13 @@ function EcosystemGraph() {
     const nodeR = 20 + (cat.totalStars / maxStars) * 25;
     return { ...cat, x, y, r: nodeR, index: i };
   });
+
+  const isConnected = (idx: number) => {
+    if (hovered === null) return false;
+    return connections.some(
+      ([a, b]) => (a === hovered && b === idx) || (b === hovered && a === idx)
+    );
+  };
 
   const handleNodeClick = (cat: Category) => {
     const el = document.getElementById("categories");
@@ -54,7 +76,7 @@ function EcosystemGraph() {
           {/* Background glow */}
           <circle cx={CX} cy={CY} r={120} fill="url(#center-glow)" />
 
-          {/* Connection lines */}
+          {/* Connection lines to center */}
           {nodes.map(node => (
             <line
               key={`line-${node.index}`}
@@ -62,12 +84,32 @@ function EcosystemGraph() {
               y1={CY}
               x2={node.x}
               y2={node.y}
-              stroke={hovered === node.index ? node.color : "rgba(148,163,184,0.15)"}
+              stroke={hovered === node.index || isConnected(node.index) ? node.color : "rgba(148,163,184,0.15)"}
               strokeWidth={hovered === node.index ? 2.5 : 1}
               strokeDasharray={hovered === node.index ? "none" : "4 4"}
               style={{ transition: "all 0.3s ease" }}
             />
           ))}
+
+          {/* Inter-category connections */}
+          {connections.map(([a, b], i) => {
+            const nodeA = nodes[a];
+            const nodeB = nodes[b];
+            const isActive = hovered === a || hovered === b;
+            return (
+              <line
+                key={`conn-${i}`}
+                x1={nodeA.x}
+                y1={nodeA.y}
+                x2={nodeB.x}
+                y2={nodeB.y}
+                stroke={isActive ? "rgba(246, 130, 31, 0.5)" : "rgba(148,163,184,0.06)"}
+                strokeWidth={isActive ? 1.5 : 0.5}
+                strokeDasharray="6 4"
+                style={{ transition: "all 0.4s ease" }}
+              />
+            );
+          })}
 
           {/* Center node */}
           <g style={{ cursor: "pointer" }}>
