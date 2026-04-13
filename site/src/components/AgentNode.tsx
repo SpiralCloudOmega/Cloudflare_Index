@@ -46,12 +46,17 @@ function AgentNodeComponent({ data, selected }: NodeProps<AgentNodeType>) {
       {/* Node body */}
       <div className="agent-node-body">
         <span className="agent-node-desc">{nodeData.description}</span>
-        <span
-          className="agent-node-badge"
-          style={{ background: `${nodeData.color}20`, color: nodeData.color }}
-        >
-          {nodeData.category}
-        </span>
+        <div className="agent-node-meta">
+          <span
+            className="agent-node-badge"
+            style={{ background: `${nodeData.color}20`, color: nodeData.color }}
+          >
+            {nodeData.category}
+          </span>
+          {nodeData.source && (
+            <span className="agent-node-source">{nodeData.source}</span>
+          )}
+        </div>
       </div>
 
       {/* Output handles */}

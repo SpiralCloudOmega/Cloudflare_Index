@@ -17,9 +17,9 @@ import AgentNodeComponent from "./AgentNode";
 import {
   nodeTemplates,
   paletteGroups,
-  defaultNodes,
-  defaultEdges,
+  workflowTemplates,
 } from "../data/agentNodes";
+import type { AgentNodeData } from "../data/agentNodes";
 
 const nodeTypes = { agentNode: AgentNodeComponent };
 
@@ -30,11 +30,13 @@ function getNextId() {
 
 function AgentBuilderInner() {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const [nodes, setNodes, onNodesChange] = useNodesState(defaultNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(defaultEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState(workflowTemplates[0].nodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(workflowTemplates[0].edges);
   const [rfInstance, setRfInstance] = useState<ReactFlowInstance | null>(null);
   const [paletteOpen, setPaletteOpen] = useState(true);
-  const [selectedInfo, setSelectedInfo] = useState<string | null>(null);
+  const [selectedNode, setSelectedNode] = useState<(AgentNodeData & { nodeKey: string }) | null>(null);
+  const [activeTemplate, setActiveTemplate] = useState(workflowTemplates[0].id);
+  const [templateMenuOpen, setTemplateMenuOpen] = useState(false);
 
   const onConnect = useCallback(
     (params: Connection) =>
@@ -86,27 +88,60 @@ function AgentBuilderInner() {
 
   const onNodeClick = useCallback(
     (_: React.MouseEvent, node: (typeof nodes)[number]) => {
-      const d = node.data as Record<string, unknown>;
-      setSelectedInfo(
-        `${d.emoji} ${d.label}\n${d.description}\nCategory: ${d.category}`
-      );
+      const d = node.data as AgentNodeData & { nodeKey: string };
+      setSelectedNode(d);
     },
     []
   );
 
-  const onPaneClick = useCallback(() => setSelectedInfo(null), []);
+  const onPaneClick = useCallback(() => setSelectedNode(null), []);
 
   const handleClear = useCallback(() => {
     setNodes([]);
     setEdges([]);
-    setSelectedInfo(null);
+    setSelectedNode(null);
+    setActiveTemplate("");
   }, [setNodes, setEdges]);
 
-  const handleReset = useCallback(() => {
-    setNodes(defaultNodes);
-    setEdges(defaultEdges);
-    setSelectedInfo(null);
-  }, [setNodes, setEdges]);
+  const handleLoadTemplate = useCallback(
+    (templateId: string) => {
+      const tmpl = workflowTemplates.find((t) => t.id === templateId);
+      if (!tmpl) return;
+      setNodes(tmpl.nodes);
+      setEdges(tmpl.edges);
+      setActiveTemplate(tmpl.id);
+      setSelectedNode(null);
+      setTemplateMenuOpen(false);
+      setTimeout(() => rfInstance?.fitView({ padding: 0.15 }), 100);
+    },
+    [setNodes, setEdges, rfInstance]
+  );
+
+  const handleExport = useCallback(() => {
+    const workflow = {
+      name: "Custom Omega Workflow",
+      exported: new Date().toISOString(),
+      nodes: nodes.map((n) => ({
+        id: n.id,
+        type: (n.data as Record<string, unknown>).nodeKey,
+        position: n.position,
+        label: (n.data as Record<string, unknown>).label,
+      })),
+      edges: edges.map((e) => ({
+        source: e.source,
+        target: e.target,
+        sourceHandle: e.sourceHandle,
+        targetHandle: e.targetHandle,
+      })),
+    };
+    const blob = new Blob([JSON.stringify(workflow, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "omega-workflow.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [nodes, edges]);
 
   const nodeCount = nodes.length;
   const edgeCount = edges.length;
@@ -123,19 +158,52 @@ function AgentBuilderInner() {
 
   return (
     <section id="builder" style={sectionStyle}>
-      <h2 className="section-title">🚀 Agent Workflow Builder</h2>
+      <h2 className="section-title">🚀 Omega Agent Workflow Builder</h2>
       <p className="section-subtitle">
         Drag nodes from the palette and connect them — n8n-style visual builder
-        for Cloudflare agent architectures
+        for Cloudflare agent architectures. 14 categories, {Object.keys(nodeTemplates).length} node types, {workflowTemplates.length} pre-built workflows.
       </p>
 
-      {/* Toolbar */}
+      {/* ── Toolbar ── */}
       <div style={toolbarStyle}>
         <button style={btnStyle} onClick={() => setPaletteOpen((p) => !p)}>
           {paletteOpen ? "◀ Hide" : "▶ Palette"}
         </button>
-        <button style={btnStyle} onClick={handleReset}>
-          ↺ Demo
+
+        {/* Template selector */}
+        <div style={{ position: "relative" }}>
+          <button
+            style={{ ...btnStyle, background: activeTemplate ? "rgba(99,102,241,0.15)" : "var(--bg-secondary)" }}
+            onClick={() => setTemplateMenuOpen((p) => !p)}
+          >
+            📋 Templates ▾
+          </button>
+          {templateMenuOpen && (
+            <div style={templateDropdown}>
+              {workflowTemplates.map((tmpl) => (
+                <button
+                  key={tmpl.id}
+                  style={{
+                    ...templateItem,
+                    background: tmpl.id === activeTemplate ? "rgba(99,102,241,0.15)" : "transparent",
+                  }}
+                  onClick={() => handleLoadTemplate(tmpl.id)}
+                >
+                  <span>{tmpl.emoji}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-primary)" }}>{tmpl.name}</div>
+                    <div style={{ fontSize: 10, color: "var(--text-muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      {tmpl.description}
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <button style={btnStyle} onClick={handleExport} title="Export workflow as JSON">
+          📥 Export
         </button>
         <button style={{ ...btnStyle, color: "#ef4444" }} onClick={handleClear}>
           ✕ Clear
@@ -143,11 +211,14 @@ function AgentBuilderInner() {
         <span style={statBadge}>
           {nodeCount} nodes · {edgeCount} edges
         </span>
-        {selectedInfo && (
-          <span style={infoBadge}>{selectedInfo.split("\n")[0]}</span>
+        {selectedNode && (
+          <span style={{ ...infoBadge, borderColor: `${selectedNode.color}40`, color: selectedNode.color, background: `${selectedNode.color}10` }}>
+            {selectedNode.emoji} {selectedNode.label}
+          </span>
         )}
       </div>
 
+      {/* ── Main area ── */}
       <div style={builderWrap}>
         {/* ── Palette Sidebar ── */}
         {paletteOpen && (
@@ -155,6 +226,9 @@ function AgentBuilderInner() {
             <div style={paletteHeader}>
               <span style={{ fontWeight: 700, fontSize: 14 }}>
                 📦 Node Palette
+              </span>
+              <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+                {Object.keys(nodeTemplates).length} nodes
               </span>
             </div>
             <div style={paletteScroll}>
@@ -257,21 +331,38 @@ function AgentBuilderInner() {
         </div>
       </div>
 
-      {/* Detail panel */}
-      {selectedInfo && (
-        <div style={detailPanel}>
-          {selectedInfo.split("\n").map((line, i) => (
-            <div
-              key={i}
-              style={{
-                fontSize: i === 0 ? 14 : 12,
-                fontWeight: i === 0 ? 700 : 400,
-                color: i === 0 ? "var(--text-primary)" : "var(--text-secondary)",
-              }}
-            >
-              {line}
+      {/* ── Detail panel ── */}
+      {selectedNode && (
+        <div style={{ ...detailPanel, borderColor: `${selectedNode.color}30` }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontSize: 28 }}>{selectedNode.emoji}</span>
+            <div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: selectedNode.color }}>
+                {selectedNode.label}
+              </div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>
+                {selectedNode.description}
+              </div>
             </div>
-          ))}
+          </div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
+            <span style={{ ...detailBadge, background: `${selectedNode.color}20`, color: selectedNode.color }}>
+              {selectedNode.category}
+            </span>
+            {selectedNode.source && (
+              <span style={{ ...detailBadge, background: "rgba(148,163,184,0.1)", color: "var(--text-secondary)" }}>
+                📦 {selectedNode.source}
+              </span>
+            )}
+            <span style={{ ...detailBadge, background: "rgba(148,163,184,0.1)", color: "var(--text-muted)" }}>
+              {selectedNode.handles?.inputs ?? 1} in · {selectedNode.handles?.outputs ?? 1} out
+            </span>
+          </div>
+          {selectedNode.details && (
+            <div style={{ marginTop: 8, fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.6, padding: "8px 0", borderTop: "1px solid var(--border-color)" }}>
+              {selectedNode.details}
+            </div>
+          )}
         </div>
       )}
     </section>
@@ -323,13 +414,12 @@ const statBadge: React.CSSProperties = {
 };
 
 const infoBadge: React.CSSProperties = {
-  background: "rgba(246,130,31,0.1)",
   borderRadius: 8,
   padding: "5px 12px",
   fontSize: 11,
-  color: "var(--cf-orange)",
-  border: "1px solid rgba(246,130,31,0.3)",
+  border: "1px solid",
   marginLeft: "auto",
+  fontWeight: 600,
 };
 
 const builderWrap: React.CSSProperties = {
@@ -354,6 +444,9 @@ const paletteHeader: React.CSSProperties = {
   padding: "12px 14px",
   borderBottom: "1px solid var(--border-color)",
   color: "var(--text-primary)",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
 };
 
 const paletteScroll: React.CSSProperties = {
@@ -400,7 +493,43 @@ const detailPanel: React.CSSProperties = {
   border: "1px solid var(--border-color)",
   borderRadius: 12,
   padding: "16px 20px",
+};
+
+const detailBadge: React.CSSProperties = {
+  display: "inline-block",
+  fontSize: 10,
+  fontWeight: 600,
+  padding: "3px 10px",
+  borderRadius: 9999,
+  textTransform: "uppercase",
+  letterSpacing: 0.5,
+};
+
+const templateDropdown: React.CSSProperties = {
+  position: "absolute",
+  top: "100%",
+  left: 0,
+  marginTop: 4,
+  width: 320,
+  background: "var(--bg-secondary)",
+  border: "1px solid var(--border-color)",
+  borderRadius: 10,
+  padding: 6,
+  zIndex: 50,
+  boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
+};
+
+const templateItem: React.CSSProperties = {
   display: "flex",
-  flexDirection: "column",
-  gap: 4,
+  alignItems: "center",
+  gap: 10,
+  width: "100%",
+  padding: "10px 12px",
+  border: "none",
+  borderRadius: 8,
+  cursor: "pointer",
+  textAlign: "left",
+  fontSize: 13,
+  color: "var(--text-primary)",
+  transition: "background 0.15s ease",
 };

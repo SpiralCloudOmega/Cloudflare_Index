@@ -274,15 +274,31 @@ a:hover {
   overflow: hidden;
 }
 
+.agent-node-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
 .agent-node-badge {
   display: inline-block;
-  align-self: flex-start;
   font-size: 9px;
   font-weight: 600;
   padding: 2px 8px;
   border-radius: 9999px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.agent-node-source {
+  font-size: 8px;
+  color: var(--text-muted);
+  opacity: 0.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
 }
 
 /* React Flow overrides for dark theme */
