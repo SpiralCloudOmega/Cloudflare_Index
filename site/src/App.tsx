@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import Stats from "./components/Stats";
 import EcosystemGraph from "./components/EcosystemGraph";
 import CategoryCards from "./components/CategoryCards";
+import AgentBuilder from "./components/AgentBuilder";
 import QuickStart from "./components/QuickStart";
 import RepoExplorer from "./components/RepoExplorer";
 import Timeline from "./components/Timeline";
@@ -18,6 +19,7 @@ function App() {
       <Stats />
       <EcosystemGraph />
       <CategoryCards />
+      <AgentBuilder />
       <QuickStart />
       <RepoExplorer />
       <Timeline />

@@ -5,6 +5,7 @@ const navLinks = [
   { label: "Stats", href: "#stats" },
   { label: "Ecosystem", href: "#graph" },
   { label: "Categories", href: "#categories" },
+  { label: "🚀 Builder", href: "#builder" },
   { label: "Quick Start", href: "#quickstart" },
   { label: "Explorer", href: "#explorer" },
   { label: "Timeline", href: "#timeline" },

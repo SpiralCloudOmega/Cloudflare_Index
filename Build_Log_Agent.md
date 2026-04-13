@@ -107,7 +107,7 @@ Multiple earlier agent sessions created the entire repository from scratch. The 
 
 ---
 
-### Session 3 — Build Log + Prompt Rules (commit pending, 2026-04-11 23:24 UTC)
+### Session 3 — Build Log + Prompt Rules (commit `e8039bc`, 2026-04-11 23:24 UTC)
 
 **Trigger:** User requested two new documentation files for agent continuity and prompt architecture.
 
@@ -115,11 +115,57 @@ Multiple earlier agent sessions created the entire repository from scratch. The 
 1. Created `Build_Log_Agent.md` (this file)
 2. Created `Prompt_Rules_Agent.md`
 
+**Commit:** `docs: add Build_Log_Agent.md and Prompt_Rules_Agent.md for agent continuity`
+
+---
+
+### Session 4 — N8N-Style Agent Workflow Builder (commit pending, 2026-04-13 01:14 UTC)
+
+**Trigger:** User requested n8n-style graph node editor to be built into the site for creating custom agent workflows visually. Referenced `SpiralCloudOmega/n8n` fork.
+
+**Research:**
+- n8n uses Vue Flow (@vue-flow/core) — Vue wrapper for React Flow
+- Since our site is React, used `@xyflow/react` v12.10.2 (React Flow) — the React equivalent
+- No npm vulnerabilities found in `@xyflow/react@12.10.2`
+
+**Actions:**
+1. **Installed `@xyflow/react@12.10.2`** — React Flow library for node-based graph editors
+2. **Created `site/src/data/agentNodes.ts`** (~230 lines) — Node type registry with 24 node types across 8 categories:
+   - **Triggers** (4): HTTP Trigger, Cron Trigger, Webhook, Queue Consumer
+   - **Compute** (3): Worker, Durable Object, Pages Function
+   - **AI** (3): Workers AI, Vectorize, AutoRAG
+   - **Agents** (3): Agent Orchestrator, Sub-Agent, MCP Server
+   - **Storage** (3): Workers KV, R2 Bucket, D1 Database
+   - **Network** (2): Cloudflare Tunnel, AI Gateway
+   - **Transform** (3): JSON Transform, HTML Rewriter, Filter/Branch
+   - **Output** (3): HTTP Response, Logger, Queue Producer
+   - Also includes palette group definitions, default demo workflow (6 nodes + 6 edges)
+3. **Created `site/src/components/AgentNode.tsx`** (~80 lines) — Custom React Flow node renderer:
+   - n8n-style card with header (emoji + label), body (description + category badge)
+   - Dynamic input/output handle count per node type
+   - Color-coded borders and glow effects on selection
+4. **Created `site/src/components/AgentBuilder.tsx`** (~310 lines) — Full n8n-style workflow builder:
+   - Drag-and-drop node palette sidebar with 8 category groups
+   - React Flow canvas with snap-to-grid, MiniMap, Controls, dotted background
+   - Connect nodes by dragging between handles (animated edges)
+   - Toolbar: toggle palette, load demo workflow, clear canvas
+   - Node click → detail panel showing node info
+   - Live node/edge count display
+5. **Updated `site/src/App.tsx`** — Added `<AgentBuilder />` after CategoryCards
+6. **Updated `site/src/components/Navbar.tsx`** — Added "🚀 Builder" nav link pointing to `#builder`
+7. **Updated `site/src/index.css`** — Added ~130 lines:
+   - `.agent-node` card styles (dark glassmorphism matching site theme)
+   - React Flow dark theme overrides (controls, handles, edges)
+   - Palette tile drag animations
+   - Responsive breakpoints (palette collapses on mobile)
+
+**Build:** Passed — 436KB JS (137KB gzip), 21KB CSS (4.3KB gzip). Zero errors.
+
 ---
 
 ## 📊 Current Repository State
 
-### File Inventory (as of Session 3)
+### File Inventory (as of Session 4)
 
 | File | Lines | Type | Auto-generated? |
 |------|-------|------|-----------------|
@@ -131,13 +177,18 @@ Multiple earlier agent sessions created the entire repository from scratch. The 
 | `CLOUDFLARE_MCP.md` | 350 | Markdown | No (hand-curated) |
 | `CLOUDFLARE_PRICING.md` | 280 | Markdown | No (hand-curated) |
 | `CONTRIBUTING.md` | 121 | Markdown | No (hand-curated) |
-| `Build_Log_Agent.md` | — | Markdown | No (agent doc) |
-| `Prompt_Rules_Agent.md` | — | Markdown | No (agent doc) |
+| `Build_Log_Agent.md` | ~250 | Markdown | No (agent doc) |
+| `Prompt_Rules_Agent.md` | ~286 | Markdown | No (agent doc) |
 | `LICENSE` | 21 | Text | No |
 | `scripts/generate_cloudflare_index.py` | 412 | Python | No |
-| `site/src/**` (16 files) | 2,339 | TS/TSX/CSS | No |
+| `site/src/data/agentNodes.ts` | ~230 | TypeScript | No (node type registry) |
+| `site/src/data/repos.ts` | 212 | TypeScript | No (category data) |
+| `site/src/components/AgentBuilder.tsx` | ~310 | TSX | No (n8n-style builder) |
+| `site/src/components/AgentNode.tsx` | ~80 | TSX | No (custom node renderer) |
+| `site/src/components/*.tsx` (11 other) | ~1,980 | TSX | No |
+| `site/src/index.css` | ~350 | CSS | No |
 | `site/public/**` (5 files) | ~40 | HTML/SVG/XML/TXT | No |
-| `site/package.json` | 22 | JSON | No |
+| `site/package.json` | 23 | JSON | No |
 | `site/vite.config.ts` | 14 | TypeScript | No |
 | `site/tsconfig*.json` | 27 | JSON | No |
 | `.github/workflows/*` (2 files) | 93 | YAML | No |
@@ -150,7 +201,7 @@ Multiple earlier agent sessions created the entire repository from scratch. The 
 ```bash
 # Build the site
 cd site && npm install && npx vite build
-# Output: site/dist/ (~245KB)
+# Output: site/dist/ (~436KB JS + 21KB CSS, ~142KB gzipped total)
 
 # Regenerate the index from GitHub API
 GITHUB_TOKEN=xxx python scripts/generate_cloudflare_index.py --topics
@@ -189,6 +240,8 @@ To fix categorization, update the `EXPLICIT_OVERRIDES` dict in the Python script
 | Cloudflare GitHub Org | <https://github.com/cloudflare> |
 | User's vite-react-template | <https://github.com/SpiralCloudOmega/vite-react-template> |
 | User's r2-explorer-template | <https://github.com/SpiralCloudOmega/r2-explorer-template> |
+| User's n8n fork | <https://github.com/SpiralCloudOmega/n8n> |
+| React Flow (xyflow) | <https://reactflow.dev/> |
 
 ---
 
@@ -196,8 +249,10 @@ To fix categorization, update the `EXPLICIT_OVERRIDES` dict in the Python script
 
 1. **Shallow clone:** The repo is always provided as a shallow clone. Use `git fetch --unshallow origin` if you need full history.
 2. **Branch:** All work happens on `copilot/create-cloudflare-index-repo`. The `main` branch is the merge target.
-3. **Build verification:** Always run `cd site && npm install && npx vite build` after any site changes. Build should produce ~245KB total.
+3. **Build verification:** Always run `cd site && npm install && npx vite build` after any site changes. Build should produce ~436KB JS + 21KB CSS (~142KB gzipped).
 4. **User context:** The owner (SpiralCloudOmega) uses Perplexity Browser and other AI tools to interact with GitHub. Commands may be relayed through AI browser agents — this is legitimate usage from the repository owner.
 5. **Repo purpose:** This is a comprehensive index of Cloudflare's open-source ecosystem, not a Cloudflare product. It's a community/personal project by SpiralCloudOmega.
 6. **No tests:** There are no test suites. Validation is done via `vite build` (TypeScript compilation) and CodeQL security scanning.
-7. **The site is static:** There's no backend. All data is hardcoded in `site/src/data/repos.ts`. The Python script generates markdown files, not site data.
+7. **The site is static:** There's no backend. All data is hardcoded in `site/src/data/repos.ts` and `site/src/data/agentNodes.ts`. The Python script generates markdown files, not site data.
+8. **Agent Builder:** The site now includes an n8n-style node graph editor (`AgentBuilder.tsx`) using `@xyflow/react@12.10.2` (React Flow). Node types are defined in `agentNodes.ts`. The builder is purely client-side — drag-and-drop, no persistence.
+9. **User's n8n fork:** `SpiralCloudOmega/n8n` exists — user is interested in n8n-style workflow patterns and may request deeper integration.
