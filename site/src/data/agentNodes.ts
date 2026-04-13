@@ -731,6 +731,61 @@ export const nodeTemplates: Record<string, AgentNodeData> = {
     source: "Archon",
     details: "Multi-platform notification via Archon adapter system. Supports Slack, Discord, Telegram, email, and custom webhooks.",
   },
+
+  /* ══════════════════════════════════════════════
+     KNOWLEDGE — Library & reference sources
+     (from PACKTPub_The_Digital_Library_Of_Alexandria)
+     ══════════════════════════════════════════════ */
+  packtSearch: {
+    label: "PacktPub Search",
+    description: "Search 9,200+ PacktPublishing code repos by keyword or topic",
+    emoji: "📚",
+    color: C.research,
+    category: "research",
+    handles: { inputs: 1, outputs: 1 },
+    source: "PACKTPub_Digital_Library",
+    details: "Full-text search across 9,200+ PacktPublishing repos organized by 18 tech categories. Returns matched repos with descriptions, topics, and code sample URLs.",
+  },
+  documentIngest: {
+    label: "Document Ingest",
+    description: "Upload and parse PDFs, EPUBs, PPTX, and other documents",
+    emoji: "📄",
+    color: C.compiler,
+    category: "compiler",
+    handles: { inputs: 1, outputs: 1 },
+    source: "PACKTPub_Digital_Library",
+    details: "Multi-format document ingestion supporting PDF, EPUB, MOBI, DOCX, PPTX, CSV, and 20+ other formats. Extracts text, metadata, and structure for downstream processing.",
+  },
+  bookIndex: {
+    label: "Book Index",
+    description: "Alphabetical & topic-organized reference index of technical books",
+    emoji: "📖",
+    color: C.research,
+    category: "research",
+    handles: { inputs: 1, outputs: 1 },
+    source: "PACKTPub_Digital_Library",
+    details: "Auto-generated index of all technical books organized A-Z and by 18 topic categories (AI/ML, Web Dev, Cloud, Security, DevOps, etc.). Updated weekly.",
+  },
+  referenceResolver: {
+    label: "Reference Resolver",
+    description: "Resolve cross-references between documents and code repos",
+    emoji: "🔗",
+    color: C.compiler,
+    category: "compiler",
+    handles: { inputs: 1, outputs: 1 },
+    source: "PACKTPub_Digital_Library",
+    details: "Links book content to live code samples in PacktPublishing repos. Resolves chapter references to specific directories/files in the corresponding GitHub repository.",
+  },
+  trainingDataExtractor: {
+    label: "Training Data Extractor",
+    description: "Extract structured training data from documents for fine-tuning",
+    emoji: "🎓",
+    color: C.training,
+    category: "training",
+    handles: { inputs: 1, outputs: 2 },
+    source: "PACKTPub_Digital_Library",
+    details: "Extracts Q&A pairs, code examples, concept definitions, and structured data from technical documents. Outputs training-ready JSONL for fine-tuning or RAG ingestion.",
+  },
 };
 
 /* ─── Palette groups (sidebar categories) ───────────────────── */
@@ -780,17 +835,17 @@ export const paletteGroups: PaletteGroup[] = [
   {
     name: "Research",
     emoji: "🔬",
-    keys: ["autoresearchLoop", "webSearchAgent", "paperAnalyzer", "knowledgeGraph"],
+    keys: ["autoresearchLoop", "webSearchAgent", "paperAnalyzer", "knowledgeGraph", "packtSearch", "bookIndex"],
   },
   {
     name: "Compiler",
     emoji: "📖",
-    keys: ["wikiCompiler", "conceptExtractor", "incrementalBuilder", "wikilinkResolver"],
+    keys: ["wikiCompiler", "conceptExtractor", "incrementalBuilder", "wikilinkResolver", "documentIngest", "referenceResolver"],
   },
   {
     name: "Training & RLM",
     emoji: "λ",
-    keys: ["rlmDecomposer", "rlmLeafSolver", "doubleBuffer", "gradientCheckpoint"],
+    keys: ["rlmDecomposer", "rlmLeafSolver", "doubleBuffer", "gradientCheckpoint", "trainingDataExtractor"],
   },
   {
     name: "Storage",
@@ -963,6 +1018,35 @@ const simpleEdges: Edge[] = [
   { id: "e-transform-response", source: "transform-1", target: "response-1", animated: true, style: { stroke: C.output } },
 ];
 
+/* ── Template 7: Knowledge Acquisition Pipeline ── */
+
+const knowledgeNodes: Node[] = [
+  { id: "ka-cron", type: "agentNode", position: { x: 30, y: 200 }, data: { ...nodeTemplates.cronTrigger, nodeKey: "cronTrigger" } },
+  { id: "ka-search", type: "agentNode", position: { x: 280, y: 120 }, data: { ...nodeTemplates.packtSearch, nodeKey: "packtSearch" } },
+  { id: "ka-ingest", type: "agentNode", position: { x: 280, y: 300 }, data: { ...nodeTemplates.documentIngest, nodeKey: "documentIngest" } },
+  { id: "ka-extract", type: "agentNode", position: { x: 540, y: 120 }, data: { ...nodeTemplates.conceptExtractor, nodeKey: "conceptExtractor" } },
+  { id: "ka-ref", type: "agentNode", position: { x: 540, y: 300 }, data: { ...nodeTemplates.referenceResolver, nodeKey: "referenceResolver" } },
+  { id: "ka-embed", type: "agentNode", position: { x: 780, y: 80 }, data: { ...nodeTemplates.embeddingEngine, nodeKey: "embeddingEngine" } },
+  { id: "ka-wiki", type: "agentNode", position: { x: 780, y: 240 }, data: { ...nodeTemplates.wikiCompiler, nodeKey: "wikiCompiler" } },
+  { id: "ka-train", type: "agentNode", position: { x: 780, y: 400 }, data: { ...nodeTemplates.trainingDataExtractor, nodeKey: "trainingDataExtractor" } },
+  { id: "ka-vec", type: "agentNode", position: { x: 1040, y: 120 }, data: { ...nodeTemplates.vectorize, nodeKey: "vectorize" } },
+  { id: "ka-r2", type: "agentNode", position: { x: 1040, y: 300 }, data: { ...nodeTemplates.r2Bucket, nodeKey: "r2Bucket" } },
+];
+
+const knowledgeEdges: Edge[] = [
+  { id: "kae1", source: "ka-cron", target: "ka-search", animated: true, style: { stroke: C.research } },
+  { id: "kae2", source: "ka-cron", target: "ka-ingest", animated: true, style: { stroke: C.compiler } },
+  { id: "kae3", source: "ka-search", target: "ka-extract", animated: true, style: { stroke: C.compiler } },
+  { id: "kae4", source: "ka-ingest", target: "ka-ref", animated: true, style: { stroke: C.compiler } },
+  { id: "kae5", source: "ka-extract", target: "ka-embed", animated: true, style: { stroke: C.ai } },
+  { id: "kae6", source: "ka-extract", target: "ka-wiki", animated: true, style: { stroke: C.compiler } },
+  { id: "kae7", source: "ka-ref", target: "ka-wiki", animated: true, style: { stroke: C.compiler } },
+  { id: "kae8", source: "ka-ref", target: "ka-train", animated: true, style: { stroke: C.training } },
+  { id: "kae9", source: "ka-embed", target: "ka-vec", animated: true, style: { stroke: C.ai } },
+  { id: "kae10", source: "ka-wiki", target: "ka-r2", animated: true, style: { stroke: C.storage } },
+  { id: "kae11", source: "ka-train", target: "ka-r2", animated: true, style: { stroke: C.storage } },
+];
+
 /* ── Export all templates ── */
 
 export const workflowTemplates: WorkflowTemplate[] = [
@@ -1013,6 +1097,14 @@ export const workflowTemplates: WorkflowTemplate[] = [
     emoji: "⛅",
     nodes: simpleNodes,
     edges: simpleEdges,
+  },
+  {
+    id: "knowledge-acquisition",
+    name: "Knowledge Acquisition Pipeline",
+    description: "Search PacktPub, ingest docs, extract concepts, compile wiki, train, vectorize",
+    emoji: "📚",
+    nodes: knowledgeNodes,
+    edges: knowledgeEdges,
   },
 ];
 

@@ -6,6 +6,7 @@ const navLinks = [
   { label: "Ecosystem", href: "#graph" },
   { label: "Categories", href: "#categories" },
   { label: "🚀 Builder", href: "#builder" },
+  { label: "🗺️ Map", href: "#ecosystem-map" },
   { label: "Quick Start", href: "#quickstart" },
   { label: "Explorer", href: "#explorer" },
   { label: "Timeline", href: "#timeline" },

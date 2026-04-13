@@ -199,13 +199,59 @@ Multiple earlier agent sessions created the entire repository from scratch. The 
 
 ---
 
+### Session 6 — PacktPub Library Integration + Ecosystem Map (2026-04-13 23:22 UTC)
+
+**Trigger:** User shared `SpiralCloudOmega/PACKTPub_The_Digital_Library_Of_Alexandria` repo and requested creative additions — "go through it, be creative, build whatever you see might be useful."
+
+**Research:**
+- PacktPub Digital Library: 9,200+ PacktPublishing repos, multi-format document storage (Git LFS), Filza-inspired web app with 5 tabs (Files, Convert, Editor, Settings, Packt), 18 topic categories, Python upload/stats scripts, weekly index auto-update
+- Identified integration opportunity: PacktPub as a knowledge acquisition source feeding into the Omega Harness agent pipeline
+
+**Actions:**
+
+**Phase 1 — New Knowledge Base Node Types (5 new nodes, 61+ total):**
+- `packtSearch` — Search 9,200+ PacktPub repos by keyword/topic
+- `documentIngest` — Multi-format document parsing (PDF, EPUB, PPTX, DOCX, CSV)
+- `bookIndex` — Alphabetical & topic-organized book reference index
+- `referenceResolver` — Cross-reference linker (books ↔ code repos ↔ concepts)
+- `trainingDataExtractor` — Extract Q&A pairs, code examples for fine-tuning
+
+**Phase 2 — 7th Workflow Template: Knowledge Acquisition Pipeline:**
+- 10 nodes, 11 edges
+- Flow: Cron → PacktPub Search + Document Ingest → Concept Extractor + Reference Resolver → Embedding Engine + Wiki Compiler + Training Extractor → Vectorize + R2 Bucket
+- Covers full pipeline from discovery through storage
+
+**Phase 3 — New EcosystemMap.tsx Component (~300 lines):**
+- Interactive SVG showing all 16 SpiralCloudOmega repos as connected nodes
+- 7 color-coded categories (core, agent, memory, knowledge, protocol, training, template)
+- 24 connection edges showing data flows between repos
+- Hover interaction: highlights connected nodes, dims unconnected ones, animated dash edges
+- Tooltip with repo description and category badge
+- Click to open repo in new tab
+- IntersectionObserver entrance animation with staggered node reveals
+- Stats bar: 16 repos, 24 connections, 7 categories, 9,700+ total indexed repos
+
+**Phase 4 — New Documentation (2 files):**
+1. `Digital_Library_Knowledge_Pipeline.md` — Full 7-stage pipeline: Discovery → Ingestion → Extraction → Reference Resolution → Compilation → Training Data → Storage
+2. `SpiralCloudOmega_Ecosystem_Map.md` — Visual guide to all 16 repos, connection map, stats summary, Mermaid diagram
+
+**Phase 5 — Updated Existing Files:**
+- `App.tsx` — Added `<EcosystemMap />` component between AgentBuilder and QuickStart
+- `Navbar.tsx` — Added "🗺️ Map" nav link pointing to `#ecosystem-map`
+- `Footer.tsx` — Added Omega Harness Architecture link, Ecosystem Map link, PacktPub Library of Alexandria link
+- `README.md` — Updated explorer description (61+ nodes, 7 templates), added new doc links (SpiralCloudOmega_Ecosystem_Map, Digital_Library_Knowledge_Pipeline), updated repo structure (14 components)
+
+**Build:** Passed — 479KB JS (149KB gzip), 21KB CSS (4.3KB gzip). Zero errors.
+
+---
+
 ## 📊 Current Repository State
 
-### File Inventory (as of Session 5)
+### File Inventory (as of Session 6)
 
 | File | Lines | Type | Auto-generated? |
 |------|-------|------|-----------------|
-| `README.md` | 420 | Markdown | No (hand-curated) |
+| `README.md` | ~430 | Markdown | No (hand-curated) |
 | `CLOUDFLARE_INDEX.md` | 669 | Markdown | Yes (by Python script) |
 | `CLOUDFLARE_TOPICS.md` | 766 | Markdown | Yes (by Python script) |
 | `CLOUDFLARE_ECOSYSTEM.md` | 468 | Markdown | No (hand-curated) |
@@ -219,16 +265,19 @@ Multiple earlier agent sessions created the entire repository from scratch. The 
 | `Memory_Palace_Persistence.md` | ~240 | Markdown | No (Omega Harness doc) |
 | `Autoresearch_Loop_Design.md` | ~220 | Markdown | No (Omega Harness doc) |
 | `Cloudflare_Agent_Workflows.md` | ~250 | Markdown | No (Omega Harness doc) |
+| `Digital_Library_Knowledge_Pipeline.md` | ~200 | Markdown | No (Session 6 — PacktPub integration) |
+| `SpiralCloudOmega_Ecosystem_Map.md` | ~250 | Markdown | No (Session 6 — ecosystem infographic) |
 | `CONTRIBUTING.md` | 121 | Markdown | No (hand-curated) |
-| `Build_Log_Agent.md` | ~350 | Markdown | No (agent doc) |
+| `Build_Log_Agent.md` | ~440 | Markdown | No (agent doc) |
 | `Prompt_Rules_Agent.md` | ~286 | Markdown | No (agent doc) |
 | `LICENSE` | 21 | Text | No |
 | `scripts/generate_cloudflare_index.py` | 412 | Python | No |
-| `site/src/data/agentNodes.ts` | ~720 | TypeScript | No (56 nodes, 14 categories, 6 templates) |
+| `site/src/data/agentNodes.ts` | ~1,120 | TypeScript | No (61+ nodes, 14 categories, 7 templates) |
 | `site/src/data/repos.ts` | 212 | TypeScript | No (category data) |
 | `site/src/components/AgentBuilder.tsx` | ~370 | TSX | No (n8n-style builder with templates) |
 | `site/src/components/AgentNode.tsx` | ~80 | TSX | No (custom node with source badge) |
-| `site/src/components/*.tsx` (11 other) | ~1,980 | TSX | No |
+| `site/src/components/EcosystemMap.tsx` | ~300 | TSX | No (Session 6 — interactive SVG ecosystem) |
+| `site/src/components/*.tsx` (11 other) | ~1,990 | TSX | No |
 | `site/src/index.css` | ~360 | CSS | No |
 | `site/public/**` (5 files) | ~40 | HTML/SVG/XML/TXT | No |
 | `site/package.json` | 23 | JSON | No |
@@ -237,14 +286,14 @@ Multiple earlier agent sessions created the entire repository from scratch. The 
 | `.github/workflows/*` (2 files) | 93 | YAML | No |
 | `.gitignore` | 7 | Text | No |
 
-**Total:** ~9,500+ lines of content (excluding `package-lock.json`)
+**Total:** ~10,500+ lines of content (excluding `package-lock.json`)
 
 ### Build Commands
 
 ```bash
 # Build the site
 cd site && npm install && npx vite build
-# Output: site/dist/ (~464KB JS + 21KB CSS, ~150KB gzipped total)
+# Output: site/dist/ (~479KB JS + 21KB CSS, ~154KB gzipped total)
 
 # Regenerate the index from GitHub API
 GITHUB_TOKEN=xxx python scripts/generate_cloudflare_index.py --topics

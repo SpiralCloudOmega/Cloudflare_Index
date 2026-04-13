@@ -7,6 +7,8 @@ function Footer() {
     { label: "CLOUDFLARE_MCP.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/CLOUDFLARE_MCP.md" },
     { label: "AWESOME_CLOUDFLARE.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/AWESOME_CLOUDFLARE.md" },
     { label: "CLOUDFLARE_PRICING.md", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/CLOUDFLARE_PRICING.md" },
+    { label: "Omega Harness Architecture", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/Omega_Harness_Architecture.md" },
+    { label: "Ecosystem Map", url: "https://github.com/SpiralCloudOmega/Cloudflare_Index/blob/main/SpiralCloudOmega_Ecosystem_Map.md" },
   ];
 
   return (
@@ -59,6 +61,18 @@ function Footer() {
               R2 Explorer
             </a>
             {" "}— Google Drive for your R2 buckets
+          </p>
+          <p style={styles.metaLine}>
+            📚{" "}
+            <a
+              href="https://github.com/SpiralCloudOmega/PACKTPub_The_Digital_Library_Of_Alexandria"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={styles.inlineLink}
+            >
+              PacktPub Library of Alexandria
+            </a>
+            {" "}— 9,200+ technical book repos indexed
           </p>
         </div>
 

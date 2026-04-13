@@ -19,7 +19,7 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 
 | File | What it contains |
 |------|-----------------|
-| 🌐 **[Interactive Explorer](https://SpiralCloudOmega.github.io/Cloudflare_Index/)** | Visual builder with 56 node types, 6 workflow templates, searchable repo table |
+| 🌐 **[Interactive Explorer](https://SpiralCloudOmega.github.io/Cloudflare_Index/)** | Visual builder with 61+ node types, 7 workflow templates, ecosystem map, searchable repo table |
 | 📋 **[CLOUDFLARE_INDEX.md](CLOUDFLARE_INDEX.md)** | All 478 repos alphabetically (A–Z) with descriptions, languages & star counts |
 | 🗂️ **[CLOUDFLARE_TOPICS.md](CLOUDFLARE_TOPICS.md)** | All repos grouped by technology category with highlights & collapsible full lists |
 | 🗺️ **[CLOUDFLARE_ECOSYSTEM.md](CLOUDFLARE_ECOSYSTEM.md)** | Product-to-repo mapping: every Cloudflare product and its corresponding open source repos |
@@ -32,12 +32,14 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 | File | What it contains |
 |------|-----------------|
 | 🏗️ **[Omega_Harness_Architecture.md](Omega_Harness_Architecture.md)** | Unified system architecture — layer diagram, subsystem integration map, deployment model |
+| 🗺️ **[SpiralCloudOmega_Ecosystem_Map.md](SpiralCloudOmega_Ecosystem_Map.md)** | Full 16-repo ecosystem map — all connections, categories, and stats |
+| 📚 **[Digital_Library_Knowledge_Pipeline.md](Digital_Library_Knowledge_Pipeline.md)** | PacktPub Library integration — 9,200+ book repos → knowledge acquisition pipeline |
 | 🤖 **[MCP_Protocol_Integration.md](MCP_Protocol_Integration.md)** | Model Context Protocol integration — 15+ Cloudflare MCP servers, tool schemas, auth |
 | 🎯 **[Skill_Evolution_Framework.md](Skill_Evolution_Framework.md)** | Self-evolving skill system — Read→Execute→Reflect→Write loop, skill routing, library |
 | λ **[Recursive_Language_Model_Patterns.md](Recursive_Language_Model_Patterns.md)** | Lambda-calculus task decomposition — SPLIT/MAP/REDUCE operators, bounded inference |
 | 🏰 **[Memory_Palace_Persistence.md](Memory_Palace_Persistence.md)** | Cross-session agent memory — Vectorize, KV, R2, D1 backends, spatial organization |
 | 🔬 **[Autoresearch_Loop_Design.md](Autoresearch_Loop_Design.md)** | Perpetual research loops — gap detection, web search, paper analysis, knowledge graph |
-| ⛅ **[Cloudflare_Agent_Workflows.md](Cloudflare_Agent_Workflows.md)** | 6 pre-built workflow templates — Omega Pipeline, RAG+Wiki, Autoresearch, Skills, RLM |
+| ⛅ **[Cloudflare_Agent_Workflows.md](Cloudflare_Agent_Workflows.md)** | 7 pre-built workflow templates — Omega Pipeline, RAG+Wiki, Autoresearch, Skills, RLM, Knowledge |
 
 ---
 
@@ -45,15 +47,15 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 
 ```
 📁 site/                            — Interactive React app (GitHub Pages)
-├── src/components/                — 13 components: Navbar, Hero, Stats,
+├── src/components/                — 14 components: Navbar, Hero, Stats,
 │                                    EcosystemGraph, CategoryCards, AgentBuilder,
-│                                    AgentNode, QuickStart, RepoExplorer,
+│                                    AgentNode, EcosystemMap, QuickStart, RepoExplorer,
 │                                    Timeline, LanguageChart, Footer, BackToTop
-├── src/data/agentNodes.ts         — 56 node types, 14 categories, 6 workflow templates
+├── src/data/agentNodes.ts         — 61+ node types, 14 categories, 7 workflow templates
 ├── src/data/repos.ts              — 60+ repos, language stats, timeline milestones
 ├── public/                        — cloudflare.svg, 404.html (SPA), robots.txt
 ├── vite.config.ts                 — Vite 6 build configuration
-└── dist/                          — Built static site (~464KB)
+└── dist/                          — Built static site (~479KB)
 
 📁 scripts/
 └── generate_cloudflare_index.py   — Regenerate the index from GitHub API

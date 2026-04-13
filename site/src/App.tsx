@@ -4,6 +4,7 @@ import Stats from "./components/Stats";
 import EcosystemGraph from "./components/EcosystemGraph";
 import CategoryCards from "./components/CategoryCards";
 import AgentBuilder from "./components/AgentBuilder";
+import EcosystemMap from "./components/EcosystemMap";
 import QuickStart from "./components/QuickStart";
 import RepoExplorer from "./components/RepoExplorer";
 import Timeline from "./components/Timeline";
@@ -20,6 +21,7 @@ function App() {
       <EcosystemGraph />
       <CategoryCards />
       <AgentBuilder />
+      <EcosystemMap />
       <QuickStart />
       <RepoExplorer />
       <Timeline />
