@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://spiralcloudomega.github.io/Cloudflare_Index/sitemap.xml
