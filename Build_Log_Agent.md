@@ -119,7 +119,7 @@ Multiple earlier agent sessions created the entire repository from scratch. The 
 
 ---
 
-### Session 4 — N8N-Style Agent Workflow Builder (commit pending, 2026-04-13 01:14 UTC)
+### Session 4 — N8N-Style Agent Workflow Builder (commit `9e96f67`, 2026-04-13 01:14 UTC)
 
 **Trigger:** User requested n8n-style graph node editor to be built into the site for creating custom agent workflows visually. Referenced `SpiralCloudOmega/n8n` fork.
 
@@ -130,63 +130,106 @@ Multiple earlier agent sessions created the entire repository from scratch. The 
 
 **Actions:**
 1. **Installed `@xyflow/react@12.10.2`** — React Flow library for node-based graph editors
-2. **Created `site/src/data/agentNodes.ts`** (~230 lines) — Node type registry with 24 node types across 8 categories:
-   - **Triggers** (4): HTTP Trigger, Cron Trigger, Webhook, Queue Consumer
-   - **Compute** (3): Worker, Durable Object, Pages Function
-   - **AI** (3): Workers AI, Vectorize, AutoRAG
-   - **Agents** (3): Agent Orchestrator, Sub-Agent, MCP Server
-   - **Storage** (3): Workers KV, R2 Bucket, D1 Database
-   - **Network** (2): Cloudflare Tunnel, AI Gateway
-   - **Transform** (3): JSON Transform, HTML Rewriter, Filter/Branch
-   - **Output** (3): HTTP Response, Logger, Queue Producer
-   - Also includes palette group definitions, default demo workflow (6 nodes + 6 edges)
-3. **Created `site/src/components/AgentNode.tsx`** (~80 lines) — Custom React Flow node renderer:
-   - n8n-style card with header (emoji + label), body (description + category badge)
-   - Dynamic input/output handle count per node type
-   - Color-coded borders and glow effects on selection
-4. **Created `site/src/components/AgentBuilder.tsx`** (~310 lines) — Full n8n-style workflow builder:
-   - Drag-and-drop node palette sidebar with 8 category groups
-   - React Flow canvas with snap-to-grid, MiniMap, Controls, dotted background
-   - Connect nodes by dragging between handles (animated edges)
-   - Toolbar: toggle palette, load demo workflow, clear canvas
-   - Node click → detail panel showing node info
-   - Live node/edge count display
+2. **Created `site/src/data/agentNodes.ts`** (~230 lines) — Node type registry with 24 node types across 8 categories
+3. **Created `site/src/components/AgentNode.tsx`** (~80 lines) — Custom React Flow node renderer
+4. **Created `site/src/components/AgentBuilder.tsx`** (~310 lines) — Full n8n-style workflow builder
 5. **Updated `site/src/App.tsx`** — Added `<AgentBuilder />` after CategoryCards
 6. **Updated `site/src/components/Navbar.tsx`** — Added "🚀 Builder" nav link pointing to `#builder`
-7. **Updated `site/src/index.css`** — Added ~130 lines:
-   - `.agent-node` card styles (dark glassmorphism matching site theme)
-   - React Flow dark theme overrides (controls, handles, edges)
-   - Palette tile drag animations
-   - Responsive breakpoints (palette collapses on mobile)
+7. **Updated `site/src/index.css`** — Added ~130 lines for agent node styles and React Flow overrides
 
 **Build:** Passed — 436KB JS (137KB gzip), 21KB CSS (4.3KB gzip). Zero errors.
 
 ---
 
+### Session 5 — Omega Harness Integration (commits `6203647`+, 2026-04-13 22:03 UTC)
+
+**Trigger:** User requested integration of 12 source repositories into a unified "Omega Harness" multi-agent framework with n8n-style graph nodes, detailed architecture documentation, and visual workflow templates.
+
+**Source Repositories Researched (12 total):**
+1. `SpiralCloudOmega/Archon` — YAML DAG workflow orchestration (TypeScript/Bun)
+2. `SpiralCloudOmega/mempalace` — Persistent AI memory system (Python)
+3. `SpiralCloudOmega/Memento-Skills` — Self-evolving agent skills with Read→Execute→Reflect→Write loop (Python)
+4. `SpiralCloudOmega/llm-wiki-compiler` — Incremental knowledge compilation into interlinked wikis (TypeScript)
+5. `SpiralCloudOmega/lambda-RLM` — λ-calculus recursive language model with typed operators (Python)
+6. `SpiralCloudOmega/meta-harness-tbench2-artifact` — Terminal-Bench agent scaffold, 76.4% score (Python)
+7. `SpiralCloudOmega/servers` — MCP reference implementations (TypeScript)
+8. `SpiralCloudOmega/mcp-server-cloudflare` — 15+ domain-specific Cloudflare MCP servers (TypeScript)
+9. `SpiralCloudOmega/MegaTrain` — 100B+ parameter training on single GPU with double-buffering (Python)
+10. `SpiralCloudOmega/awesome-autoresearch` — Karpathy-inspired perpetual research patterns (Markdown)
+11. `SpiralCloudOmega/claude-cookbooks` — Production-ready Claude API recipes (Python/TypeScript)
+12. `SpiralCloudOmega/claude-code-best-practice` — Agent team orchestration patterns (Markdown)
+
+**Actions:**
+
+**Phase 1 — Expanded Node Type Registry (agentNodes.ts):**
+- Grew from 24 node types / 8 categories → **56 node types / 14 categories**
+- New categories: Memory (5 nodes), Skills (5), Protocols (5), Research (4), Compiler (4), Training & RLM (4)
+- Every node has: label, description, emoji, color, category, handle counts, source attribution, detailed tooltip
+- Added color palette constants for all 14 categories
+
+**Phase 2 — Pre-Built Workflow Templates (6 total):**
+1. **Omega Agent Pipeline** (9 nodes) — Full-stack: orchestrator → memory + skills + MCP → AI → persist → respond
+2. **RAG + Wiki Compiler** (8 nodes) — Search → extract → embed → vectorize → compile wiki → R2
+3. **Autoresearch Loop** (7 nodes) — Cron → search + analyze → knowledge graph → memory → queue feedback
+4. **Skill Evolution Loop** (7 nodes) — Event → route → execute/create → reflect → library → notify
+5. **RLM Recursive Decomposition** (7 nodes) — HTTP → decompose → leaf solve × N → reduce → env store
+6. **Simple Cloudflare Worker** (6 nodes) — HTTP → Worker → AI + KV → Transform → Response
+
+**Phase 3 — Updated AgentBuilder Component:**
+- Added template selector dropdown (📋 Templates button with 6 template cards)
+- Added workflow export button (📥 Export → downloads omega-workflow.json)
+- Enhanced detail panel showing: source attribution, handle count, detailed description
+- Updated AgentNode to display source repo badge
+- Default view now shows Omega Agent Pipeline template
+
+**Phase 4 — Documentation (7 new files):**
+1. `Omega_Harness_Architecture.md` — Unified system architecture with layer diagram, subsystem map, deployment model, Mermaid diagrams
+2. `MCP_Protocol_Integration.md` — MCP protocol layer: 15+ servers, tool schemas, auth, communication patterns
+3. `Skill_Evolution_Framework.md` — Memento-Skills integration: Read→Execute→Reflect→Write, skill routing, utility scoring
+4. `Recursive_Language_Model_Patterns.md` — λ-RLM: SPLIT/MAP/REDUCE operators, bounded inference, env var storage
+5. `Memory_Palace_Persistence.md` — Cross-session memory: spatial organization, backend storage, token cost analysis
+6. `Autoresearch_Loop_Design.md` — Perpetual research: directives, scheduling, wiki integration, quality metrics
+7. `Cloudflare_Agent_Workflows.md` — All 6 workflow templates with node layouts, use cases, JSON export format
+
+**Phase 5 — Updated README.md:**
+- Added Omega Harness documentation table (7 new links)
+- Updated repository structure tree (13 components, 56 node types, all new docs)
+
+**Build:** Passed — 464KB JS (145KB gzip), 21KB CSS (4.3KB gzip). Zero errors.
+
+---
+
 ## 📊 Current Repository State
 
-### File Inventory (as of Session 4)
+### File Inventory (as of Session 5)
 
 | File | Lines | Type | Auto-generated? |
 |------|-------|------|-----------------|
-| `README.md` | 410 | Markdown | No (hand-curated) |
+| `README.md` | 420 | Markdown | No (hand-curated) |
 | `CLOUDFLARE_INDEX.md` | 669 | Markdown | Yes (by Python script) |
 | `CLOUDFLARE_TOPICS.md` | 766 | Markdown | Yes (by Python script) |
 | `CLOUDFLARE_ECOSYSTEM.md` | 468 | Markdown | No (hand-curated) |
 | `AWESOME_CLOUDFLARE.md` | 322 | Markdown | No (hand-curated) |
 | `CLOUDFLARE_MCP.md` | 350 | Markdown | No (hand-curated) |
 | `CLOUDFLARE_PRICING.md` | 280 | Markdown | No (hand-curated) |
+| `Omega_Harness_Architecture.md` | ~280 | Markdown | No (Omega Harness doc) |
+| `MCP_Protocol_Integration.md` | ~200 | Markdown | No (Omega Harness doc) |
+| `Skill_Evolution_Framework.md` | ~220 | Markdown | No (Omega Harness doc) |
+| `Recursive_Language_Model_Patterns.md` | ~210 | Markdown | No (Omega Harness doc) |
+| `Memory_Palace_Persistence.md` | ~240 | Markdown | No (Omega Harness doc) |
+| `Autoresearch_Loop_Design.md` | ~220 | Markdown | No (Omega Harness doc) |
+| `Cloudflare_Agent_Workflows.md` | ~250 | Markdown | No (Omega Harness doc) |
 | `CONTRIBUTING.md` | 121 | Markdown | No (hand-curated) |
-| `Build_Log_Agent.md` | ~250 | Markdown | No (agent doc) |
+| `Build_Log_Agent.md` | ~350 | Markdown | No (agent doc) |
 | `Prompt_Rules_Agent.md` | ~286 | Markdown | No (agent doc) |
 | `LICENSE` | 21 | Text | No |
 | `scripts/generate_cloudflare_index.py` | 412 | Python | No |
-| `site/src/data/agentNodes.ts` | ~230 | TypeScript | No (node type registry) |
+| `site/src/data/agentNodes.ts` | ~720 | TypeScript | No (56 nodes, 14 categories, 6 templates) |
 | `site/src/data/repos.ts` | 212 | TypeScript | No (category data) |
-| `site/src/components/AgentBuilder.tsx` | ~310 | TSX | No (n8n-style builder) |
-| `site/src/components/AgentNode.tsx` | ~80 | TSX | No (custom node renderer) |
+| `site/src/components/AgentBuilder.tsx` | ~370 | TSX | No (n8n-style builder with templates) |
+| `site/src/components/AgentNode.tsx` | ~80 | TSX | No (custom node with source badge) |
 | `site/src/components/*.tsx` (11 other) | ~1,980 | TSX | No |
-| `site/src/index.css` | ~350 | CSS | No |
+| `site/src/index.css` | ~360 | CSS | No |
 | `site/public/**` (5 files) | ~40 | HTML/SVG/XML/TXT | No |
 | `site/package.json` | 23 | JSON | No |
 | `site/vite.config.ts` | 14 | TypeScript | No |
@@ -194,14 +237,14 @@ Multiple earlier agent sessions created the entire repository from scratch. The 
 | `.github/workflows/*` (2 files) | 93 | YAML | No |
 | `.gitignore` | 7 | Text | No |
 
-**Total:** ~6,400+ lines of content (excluding `package-lock.json`)
+**Total:** ~9,500+ lines of content (excluding `package-lock.json`)
 
 ### Build Commands
 
 ```bash
 # Build the site
 cd site && npm install && npx vite build
-# Output: site/dist/ (~436KB JS + 21KB CSS, ~142KB gzipped total)
+# Output: site/dist/ (~464KB JS + 21KB CSS, ~150KB gzipped total)
 
 # Regenerate the index from GitHub API
 GITHUB_TOKEN=xxx python scripts/generate_cloudflare_index.py --topics
@@ -238,9 +281,17 @@ To fix categorization, update the `EXPLICIT_OVERRIDES` dict in the Python script
 | Repository | <https://github.com/SpiralCloudOmega/Cloudflare_Index> |
 | Live Site | <https://SpiralCloudOmega.github.io/Cloudflare_Index/> |
 | Cloudflare GitHub Org | <https://github.com/cloudflare> |
-| User's vite-react-template | <https://github.com/SpiralCloudOmega/vite-react-template> |
-| User's r2-explorer-template | <https://github.com/SpiralCloudOmega/r2-explorer-template> |
 | User's n8n fork | <https://github.com/SpiralCloudOmega/n8n> |
+| Archon | <https://github.com/SpiralCloudOmega/Archon> |
+| mempalace | <https://github.com/SpiralCloudOmega/mempalace> |
+| Memento-Skills | <https://github.com/SpiralCloudOmega/Memento-Skills> |
+| llm-wiki-compiler | <https://github.com/SpiralCloudOmega/llm-wiki-compiler> |
+| lambda-RLM | <https://github.com/SpiralCloudOmega/lambda-RLM> |
+| meta-harness-tbench2 | <https://github.com/SpiralCloudOmega/meta-harness-tbench2-artifact> |
+| MCP servers | <https://github.com/SpiralCloudOmega/servers> |
+| mcp-server-cloudflare | <https://github.com/SpiralCloudOmega/mcp-server-cloudflare> |
+| MegaTrain | <https://github.com/SpiralCloudOmega/MegaTrain> |
+| awesome-autoresearch | <https://github.com/SpiralCloudOmega/awesome-autoresearch> |
 | React Flow (xyflow) | <https://reactflow.dev/> |
 
 ---
@@ -249,10 +300,13 @@ To fix categorization, update the `EXPLICIT_OVERRIDES` dict in the Python script
 
 1. **Shallow clone:** The repo is always provided as a shallow clone. Use `git fetch --unshallow origin` if you need full history.
 2. **Branch:** All work happens on `copilot/create-cloudflare-index-repo`. The `main` branch is the merge target.
-3. **Build verification:** Always run `cd site && npm install && npx vite build` after any site changes. Build should produce ~436KB JS + 21KB CSS (~142KB gzipped).
+3. **Build verification:** Always run `cd site && npm install && npx vite build` after any site changes. Build should produce ~464KB JS + 21KB CSS (~150KB gzipped).
 4. **User context:** The owner (SpiralCloudOmega) uses Perplexity Browser and other AI tools to interact with GitHub. Commands may be relayed through AI browser agents — this is legitimate usage from the repository owner.
-5. **Repo purpose:** This is a comprehensive index of Cloudflare's open-source ecosystem, not a Cloudflare product. It's a community/personal project by SpiralCloudOmega.
+5. **Repo purpose:** This is a comprehensive index of Cloudflare's open-source ecosystem AND the Omega Harness multi-agent framework. It's a community/personal project by SpiralCloudOmega.
 6. **No tests:** There are no test suites. Validation is done via `vite build` (TypeScript compilation) and CodeQL security scanning.
 7. **The site is static:** There's no backend. All data is hardcoded in `site/src/data/repos.ts` and `site/src/data/agentNodes.ts`. The Python script generates markdown files, not site data.
-8. **Agent Builder:** The site now includes an n8n-style node graph editor (`AgentBuilder.tsx`) using `@xyflow/react@12.10.2` (React Flow). Node types are defined in `agentNodes.ts`. The builder is purely client-side — drag-and-drop, no persistence.
-9. **User's n8n fork:** `SpiralCloudOmega/n8n` exists — user is interested in n8n-style workflow patterns and may request deeper integration.
+8. **Agent Builder:** The site includes an n8n-style node graph editor (`AgentBuilder.tsx`) using `@xyflow/react@12.10.2`. **56 node types** across **14 categories** with **6 pre-built workflow templates**. Includes template selector, workflow export, and expanded detail panel.
+9. **User's repos:** The user owns 12+ repos that feed into the Omega Harness architecture: Archon, mempalace, Memento-Skills, llm-wiki-compiler, lambda-RLM, meta-harness-tbench2-artifact, servers (MCP), mcp-server-cloudflare, MegaTrain, awesome-autoresearch, claude-cookbooks, claude-code-best-practice, n8n.
+10. **File naming convention:** User requires descriptive file names, not generic ones. E.g., `Skill_Evolution_Framework.md` not `Agent.md`. Every file must describe its specific purpose.
+11. **Omega Harness architecture:** 7 new documentation files define the multi-agent framework. See `Omega_Harness_Architecture.md` for the master architecture document.
+12. **Copilot CLI SDK:** The user plans to drive the entire system via their Copilot CLI SDK. All Omega Harness components should be designed with CLI-first operation in mind.

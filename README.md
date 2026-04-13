@@ -19,7 +19,7 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 
 | File | What it contains |
 |------|-----------------|
-| 🌐 **[Interactive Explorer](https://SpiralCloudOmega.github.io/Cloudflare_Index/)** | Visual, animated, searchable web app with interactive ecosystem graph |
+| 🌐 **[Interactive Explorer](https://SpiralCloudOmega.github.io/Cloudflare_Index/)** | Visual builder with 56 node types, 6 workflow templates, searchable repo table |
 | 📋 **[CLOUDFLARE_INDEX.md](CLOUDFLARE_INDEX.md)** | All 478 repos alphabetically (A–Z) with descriptions, languages & star counts |
 | 🗂️ **[CLOUDFLARE_TOPICS.md](CLOUDFLARE_TOPICS.md)** | All repos grouped by technology category with highlights & collapsible full lists |
 | 🗺️ **[CLOUDFLARE_ECOSYSTEM.md](CLOUDFLARE_ECOSYSTEM.md)** | Product-to-repo mapping: every Cloudflare product and its corresponding open source repos |
@@ -27,20 +27,33 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 | 🤖 **[CLOUDFLARE_MCP.md](CLOUDFLARE_MCP.md)** | MCP integration guide — connect AI assistants to Cloudflare services |
 | 💰 **[CLOUDFLARE_PRICING.md](CLOUDFLARE_PRICING.md)** | Pricing reference — Workers AI ($0.045/M tokens), R2 ($0.015/GB), D1, KV |
 
+### 🏗️ Omega Harness — Multi-Agent Architecture
+
+| File | What it contains |
+|------|-----------------|
+| 🏗️ **[Omega_Harness_Architecture.md](Omega_Harness_Architecture.md)** | Unified system architecture — layer diagram, subsystem integration map, deployment model |
+| 🤖 **[MCP_Protocol_Integration.md](MCP_Protocol_Integration.md)** | Model Context Protocol integration — 15+ Cloudflare MCP servers, tool schemas, auth |
+| 🎯 **[Skill_Evolution_Framework.md](Skill_Evolution_Framework.md)** | Self-evolving skill system — Read→Execute→Reflect→Write loop, skill routing, library |
+| λ **[Recursive_Language_Model_Patterns.md](Recursive_Language_Model_Patterns.md)** | Lambda-calculus task decomposition — SPLIT/MAP/REDUCE operators, bounded inference |
+| 🏰 **[Memory_Palace_Persistence.md](Memory_Palace_Persistence.md)** | Cross-session agent memory — Vectorize, KV, R2, D1 backends, spatial organization |
+| 🔬 **[Autoresearch_Loop_Design.md](Autoresearch_Loop_Design.md)** | Perpetual research loops — gap detection, web search, paper analysis, knowledge graph |
+| ⛅ **[Cloudflare_Agent_Workflows.md](Cloudflare_Agent_Workflows.md)** | 6 pre-built workflow templates — Omega Pipeline, RAG+Wiki, Autoresearch, Skills, RLM |
+
 ---
 
 ## 📂 Repository Structure
 
 ```
 📁 site/                            — Interactive React app (GitHub Pages)
-├── src/components/                — 11 components: Navbar, Hero, Stats,
-│                                    EcosystemGraph, CategoryCards, QuickStart,
-│                                    RepoExplorer, Timeline, LanguageChart,
-│                                    Footer, BackToTop
+├── src/components/                — 13 components: Navbar, Hero, Stats,
+│                                    EcosystemGraph, CategoryCards, AgentBuilder,
+│                                    AgentNode, QuickStart, RepoExplorer,
+│                                    Timeline, LanguageChart, Footer, BackToTop
+├── src/data/agentNodes.ts         — 56 node types, 14 categories, 6 workflow templates
 ├── src/data/repos.ts              — 60+ repos, language stats, timeline milestones
 ├── public/                        — cloudflare.svg, 404.html (SPA), robots.txt
 ├── vite.config.ts                 — Vite 6 build configuration
-└── dist/                          — Built static site (~245KB)
+└── dist/                          — Built static site (~464KB)
 
 📁 scripts/
 └── generate_cloudflare_index.py   — Regenerate the index from GitHub API
@@ -55,6 +68,17 @@ A comprehensive, community-friendly index of **all 478+ public repositories** fr
 📄 AWESOME_CLOUDFLARE.md     — Curated community tools, frameworks, awesome lists
 📄 CLOUDFLARE_MCP.md         — MCP integration guide with architecture diagrams
 📄 CLOUDFLARE_PRICING.md     — Pricing reference for all Cloudflare services
+
+📄 Omega_Harness_Architecture.md      — Unified multi-agent system architecture
+📄 MCP_Protocol_Integration.md        — MCP protocol layer (15+ Cloudflare servers)
+📄 Skill_Evolution_Framework.md       — Self-evolving skill framework (Memento-Skills)
+📄 Recursive_Language_Model_Patterns.md — Lambda-calculus task decomposition (λ-RLM)
+📄 Memory_Palace_Persistence.md       — Cross-session agent memory (mempalace)
+📄 Autoresearch_Loop_Design.md        — Perpetual autonomous research loops
+📄 Cloudflare_Agent_Workflows.md      — 6 pre-built workflow template reference
+
+📄 Build_Log_Agent.md        — Agent session history and continuity log
+📄 Prompt_Rules_Agent.md     — Agent architecture and prompt engineering rules
 📄 CONTRIBUTING.md            — How to contribute
 📄 LICENSE                    — MIT License
 ```
